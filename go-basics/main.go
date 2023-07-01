@@ -24,6 +24,7 @@ import (
 
 	"github.com/rajkumar-km/go-play/go-basics/constants"
 	"github.com/rajkumar-km/go-play/go-basics/controlflow"
+	"github.com/rajkumar-km/go-play/go-basics/functions"
 	"github.com/rajkumar-km/go-play/go-basics/hello"
 	"github.com/rajkumar-km/go-play/go-basics/types"
 	"github.com/rajkumar-km/go-play/go-basics/variables"
@@ -47,4 +48,7 @@ func main() {
 
 	fmt.Println("----- 5. Control Flow -----")
 	controlflow.Play()
+
+	fmt.Println("----- 6. Functions -----")
+	functions.Play()
 }
