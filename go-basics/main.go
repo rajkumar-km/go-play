@@ -27,6 +27,7 @@ import (
 	"github.com/rajkumar-km/go-play/go-basics/controlflow"
 	"github.com/rajkumar-km/go-play/go-basics/functions"
 	"github.com/rajkumar-km/go-play/go-basics/hello"
+	"github.com/rajkumar-km/go-play/go-basics/interfaces"
 	"github.com/rajkumar-km/go-play/go-basics/maps"
 	"github.com/rajkumar-km/go-play/go-basics/methods"
 	"github.com/rajkumar-km/go-play/go-basics/packages"
@@ -79,4 +80,7 @@ func main() {
 
 	fmt.Println("\n----- 13. METHODS -----")
 	methods.Play()
+
+	fmt.Println("\n----- 14. INTERFACES -----")
+	interfaces.Play()
 }
