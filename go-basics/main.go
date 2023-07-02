@@ -28,6 +28,7 @@ import (
 	"github.com/rajkumar-km/go-play/go-basics/functions"
 	"github.com/rajkumar-km/go-play/go-basics/hello"
 	"github.com/rajkumar-km/go-play/go-basics/maps"
+	"github.com/rajkumar-km/go-play/go-basics/methods"
 	"github.com/rajkumar-km/go-play/go-basics/packages"
 	"github.com/rajkumar-km/go-play/go-basics/pointers"
 	"github.com/rajkumar-km/go-play/go-basics/slices"
@@ -75,4 +76,7 @@ func main() {
 
 	fmt.Println("\n----- 12. STRUCTS -----")
 	structs.Play()
+
+	fmt.Println("\n----- 13. METHODS -----")
+	methods.Play()
 }
