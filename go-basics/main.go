@@ -26,6 +26,7 @@ import (
 	"github.com/rajkumar-km/go-play/go-basics/controlflow"
 	"github.com/rajkumar-km/go-play/go-basics/functions"
 	"github.com/rajkumar-km/go-play/go-basics/hello"
+	"github.com/rajkumar-km/go-play/go-basics/packages"
 	"github.com/rajkumar-km/go-play/go-basics/types"
 	"github.com/rajkumar-km/go-play/go-basics/variables"
 )
@@ -34,21 +35,24 @@ import (
 func main() {
 	fmt.Println("Executing main function")
 
-	fmt.Println("----- 1. Hello, world -----")
+	fmt.Println("\n----- 1. HELLO WORLD -----")
 	hello.Play()
 
-	fmt.Println("----- 2. Variables -----")
+	fmt.Println("\n----- 2. VARIABLES -----")
 	variables.Play()
 
-	fmt.Println("----- 3. Types -----")
+	fmt.Println("\n----- 3. TYPES -----")
 	types.Play()
 
-	fmt.Println("----- 4. Constants -----")
+	fmt.Println("\n----- 4. CONSTANTS -----")
 	constants.Play()
 
-	fmt.Println("----- 5. Control Flow -----")
+	fmt.Println("\n----- 5. CONTROL FLOW -----")
 	controlflow.Play()
 
-	fmt.Println("----- 6. Functions -----")
+	fmt.Println("\n----- 6. FUNCTIONS -----")
 	functions.Play()
+
+	fmt.Println("\n----- 7. PACKAGES -----")
+	packages.Play()
 }
