@@ -29,6 +29,7 @@ import (
 	"github.com/rajkumar-km/go-play/go-basics/hello"
 	"github.com/rajkumar-km/go-play/go-basics/maps"
 	"github.com/rajkumar-km/go-play/go-basics/packages"
+	"github.com/rajkumar-km/go-play/go-basics/pointers"
 	"github.com/rajkumar-km/go-play/go-basics/slices"
 	"github.com/rajkumar-km/go-play/go-basics/types"
 	"github.com/rajkumar-km/go-play/go-basics/variables"
@@ -67,4 +68,7 @@ func main() {
 
 	fmt.Println("\n----- 10. MAPS -----")
 	maps.Play()
+
+	fmt.Println("\n----- 11. POINTERS -----")
+	pointers.Play()
 }
