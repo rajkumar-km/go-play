@@ -31,6 +31,7 @@ import (
 	"github.com/rajkumar-km/go-play/go-basics/packages"
 	"github.com/rajkumar-km/go-play/go-basics/pointers"
 	"github.com/rajkumar-km/go-play/go-basics/slices"
+	"github.com/rajkumar-km/go-play/go-basics/structs"
 	"github.com/rajkumar-km/go-play/go-basics/types"
 	"github.com/rajkumar-km/go-play/go-basics/variables"
 )
@@ -71,4 +72,7 @@ func main() {
 
 	fmt.Println("\n----- 11. POINTERS -----")
 	pointers.Play()
+
+	fmt.Println("\n----- 12. STRUCTS -----")
+	structs.Play()
 }
