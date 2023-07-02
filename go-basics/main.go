@@ -23,6 +23,7 @@ import (
 	"fmt"
 
 	"github.com/rajkumar-km/go-play/go-basics/arrays"
+	"github.com/rajkumar-km/go-play/go-basics/composition"
 	"github.com/rajkumar-km/go-play/go-basics/constants"
 	"github.com/rajkumar-km/go-play/go-basics/controlflow"
 	"github.com/rajkumar-km/go-play/go-basics/functions"
@@ -83,4 +84,7 @@ func main() {
 
 	fmt.Println("\n----- 14. INTERFACES -----")
 	interfaces.Play()
+
+	fmt.Println("\n----- 15. COMPOSITION -----")
+	composition.Play()
 }
