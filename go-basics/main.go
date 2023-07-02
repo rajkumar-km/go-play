@@ -22,6 +22,7 @@ package main
 import (
 	"fmt"
 
+	"github.com/rajkumar-km/go-play/go-basics/arrays"
 	"github.com/rajkumar-km/go-play/go-basics/constants"
 	"github.com/rajkumar-km/go-play/go-basics/controlflow"
 	"github.com/rajkumar-km/go-play/go-basics/functions"
@@ -55,4 +56,7 @@ func main() {
 
 	fmt.Println("\n----- 7. PACKAGES -----")
 	packages.Play()
+
+	fmt.Println("\n----- 8. ARRAYS -----")
+	arrays.Play()
 }
