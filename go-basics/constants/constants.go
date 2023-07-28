@@ -5,8 +5,14 @@ package constants
 
 import "fmt"
 
-// Play demonstrates the the typed and untyped constants in Go
+// Play demonstrates the Go constants and creating enums using iota
 func Play() {
+	PlayConstants()
+	PlayIotaSamples()
+}
+
+// PlayConstants demonstrates the the typed and untyped constants in Go
+func PlayConstants() {
 	// All the literals in Go are constants without a name
 	fmt.Println(1, 3.17, "Hello", 'C', false, 1+2.7i)
 
