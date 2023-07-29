@@ -54,6 +54,10 @@ const (
 	TB                    // 1 << (iota=4 * 10) = 1099511627776
 )
 
+// If iota is used outside the const block, then it will always be zero
+const zeroInt int = iota       // 0
+const zeroFloat float32 = iota // 0
+
 // PlayIotaSamples demonstrates the various usages of iota
 func PlayIotaSamples() {
 	fmt.Println(Fatal, Error, Warn, Info, Debug, Trace)
