@@ -4,19 +4,18 @@ import (
 	"fmt"
 )
 
-/*
-iota is a Go identifier that helps to auto initialize the constants
-  - iota is set to zero whenever a const block is started
-  - iota is auto incremented by 1 on every new line
-  - The first constant in the const block must be initialized.
-  - Subsequent constants can be left uninitialized. Go generally applies the
-    last expression to subsequent constants if left empty.
-
-iota is powerful with expresssion, use it for necessary cases
-  - Use the hard coded values instead if the constant values are exported/serialized by consumers.
-    Because, it can cause trouble if a new constant is introduced in between the order.
-  - Ensure that the code is readable
-*/
+// iota is a Go's predeclared const that helps to auto initialize the constants
+//   - iota is set to zero whenever a const block is started
+//   - iota is auto incremented by 1 on every new line
+//   - The first constant in the const block must be initialized.
+//   - Subsequent constants can be left uninitialized. Go by default applies the
+//     last expression to subsequent constants if left empty.
+//
+// iota is powerful with expresssion, use it only for necessary cases
+//   - Use the hard coded values instead if the constant values are exported or
+//     serialized by consumers. Otherwise, it can cause trouble if a new constant
+//     is introduced in between the order.
+//   - Ensure that the code is readable and understandable
 const (
 	Fatal = iota // iota = 0
 	Error        // iota = 1
