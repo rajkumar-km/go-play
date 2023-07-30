@@ -9,6 +9,7 @@ import (
 
 	"github.com/rajkumar-km/go-play/go-grpc/hello/proto"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 )
 
 var (
@@ -39,6 +40,10 @@ func main() {
 
 	// Register our implementation with gRPC server
 	proto.RegisterHelloServer(s, &server{})
+
+	// Register reflection for the gRPC service
+	// This is enable APIs that can describe the RPC schema
+	reflection.Register(s)
 
 	// Run the server with listener
 	log.Printf("server listening at %v", lis.Addr())
