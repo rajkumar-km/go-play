@@ -105,17 +105,17 @@ The following authentication mechanisms are built-in to gRPC:
 Read [GRPC guides](https://grpc.io/docs/guides/) to learn about other features.
 
 ## Advantages
-	- gRPC is not a replacement for REST. We need to choose the gRPC/REST depends on the requirements:
-	- gRPC can work on low bandwidth with high performance.
-	- Rapid development with multiple language platforms.
-	- By different evaluations, gRPC offers up to 10x faster performance and API-security than REST+JSON communication as it uses Protobuf and HTTP/2
-	- gRPC supports client- or server-side streaming semantics
-	- The prime feature of gRPC methodology is the native code generation for client/server applications. gRPC frameworks use protoc compiler to generate code from the .proto file.
+- gRPC is not a replacement for REST. We need to choose the gRPC/REST depends on the requirements:
+- gRPC can work on low bandwidth with high performance.
+- Rapid development with multiple language platforms.
+- By different evaluations, gRPC offers up to 10x faster performance and API-security than REST+JSON communication as it uses Protobuf and HTTP/2
+- gRPC supports client- or server-side streaming semantics
+- The prime feature of gRPC methodology is the native code generation for client/server applications. gRPC frameworks use protoc compiler to generate code from the .proto file.
 
 ## Disadvantages
-	- Not supported by web browsers unlike REST.
-	- gRPC always uses POST request which a threat to web security.
-	- Caching not supported as a result. In fact, it seems gRPC won't like caching.
-	- Not transparent and in binary form which is difficult to understand
-	- Difficult to implement clients without the GRPC stubs. REST can send requests using HTTP or curl commands or any other REST Client for test purposes. Now, grpcurl helps to ease the testing with gRPC reflection support.
-	- Not widely adopted yet like REST.
+- Not supported by web browsers unlike REST.
+- gRPC always uses POST request which a threat to web security.
+- Caching not supported as a result. In fact, it seems gRPC won't like caching.
+- Not transparent and in binary form which is difficult to understand
+- Difficult to implement clients without the GRPC stubs. REST can send requests using HTTP or curl commands or any other REST Client for test purposes. Now, grpcurl helps to ease the testing with gRPC reflection support.
+- Not widely adopted yet like REST.
