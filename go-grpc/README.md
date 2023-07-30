@@ -2,6 +2,7 @@
 
 ## Why GRPC?
 - Provides a common API framework to run in any environment.
+	- In gRPC, call a remote application as if it were a local object, making it easier for you to create distributed applications and services.
 	- Define your service using Protocol Buffers, a powerful binary serialization toolset/language, simple IDL, and easy interface updating.
 	- We just define the service in a .proto file. gRPC automatically generates the idiomatic client and server stubs for your service in a variety of languages and platforms.
 	- Efficiently connect services in and across data centers.
