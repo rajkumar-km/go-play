@@ -1,5 +1,5 @@
 /*
-Package variables demonstrates the different ways to declare and initialize
+Package main demonstrates the different ways to declare and initialize
 the Go variables.
 
 Also, explains the order in which Go runs the program
@@ -9,13 +9,13 @@ Also, explains the order in which Go runs the program
   - Next, the same procedure is repeated for the main package
   - Finally, start the execution from the main() function from main package
 */
-package variables
+package main
 
 import "fmt"
 
-// Play function demontrates the typed variables, type inference, and
+// main function demontrates the typed variables, type inference, and
 // short declarations
-func Play() {
+func main() {
 
 	// Typed variables (Go is statically typed language)
 	// Variables are initialized by default (0, 0.0, "", false)

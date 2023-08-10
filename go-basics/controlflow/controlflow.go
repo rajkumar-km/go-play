@@ -1,15 +1,15 @@
 /*
-Package controlflow demonstrates the control flow statements in Go
+Package main demonstrates the control flow statements in Go
 */
-package controlflow
+package main
 
 import "fmt"
 
-// Play demonstrates the conditional and looping statements in Go
+// main demonstrates the conditional and looping statements in Go
 // 1. "if" statement
 // 2. "switch" statement
 // 3. "for" statement
-func Play() {
+func main() {
 	// If statement
 	// Condition can be with or without parenthesis
 	// A short variable declaration can be used in non parenthesis format

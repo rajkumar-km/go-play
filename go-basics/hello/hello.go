@@ -1,11 +1,11 @@
 /*
-Package hello prints the message "Hello, World!"
+Package main prints the message "Hello, World!"
 */
-package hello
+package main
 
 import "fmt"
 
-// Play displays the message "Hello, World!"
-func Play() {
+// main displays the message "Hello, World!"
+func main() {
 	fmt.Println("Hello, World!")
 }

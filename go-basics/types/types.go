@@ -1,12 +1,12 @@
 /*
-Types demonstrates the various data types supported in Go
+Package main demonstrates the various data types supported in Go
 */
-package types
+package main
 
 import "fmt"
 
-// Play demonstrates the types of variables supported in Go
-func Play() {
+// main demonstrates the types of variables supported in Go
+func main() {
 	// Integer types
 	// int8, int16, int32, int64, int (32 bit on 32-bit arch, 64 bit on 64-bit arch)
 	// uint8, uint16, uint32, uint64, uint (32 bit on 32-bit arch, 64 bit on 64-bit arch)
@@ -52,15 +52,6 @@ func Play() {
 	var myComplex2 complex64 = 3 + 4i
 	var myComplex3 = complex(myFloat, myFloat64) // always use same bits in real and imaginary part.
 	fmt.Println(myComplex, myComplex2, myComplex3)
-
-	// Type conversion
-	// Go does not perform implicit type conversion for safety (like buffer overflow)
-	// Explicit typecast is required for everything even for adding two numeric types
-	var myInt32 int32 = 10
-	var myInt64 int64 = 20
-	var sum int64 = int64(myInt32) + myInt64
-	var fsum = myFloat64 + float64(sum)
-	fmt.Println(fsum)
 
 	// Supported operators in Go
 	// * Arithmetic Operators: +, -, *, /, %

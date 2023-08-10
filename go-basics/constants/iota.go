@@ -1,4 +1,4 @@
-package constants
+package main
 
 import (
 	"fmt"
@@ -57,8 +57,8 @@ const (
 const zeroInt int = iota       // 0
 const zeroFloat float32 = iota // 0
 
-// PlayIotaSamples demonstrates the various usages of iota
-func PlayIotaSamples() {
+// DemoIotaSamples demonstrates the various usages of iota
+func DemoIotaSamples() {
 	fmt.Println(Fatal, Error, Warn, Info, Debug, Trace)
 	fmt.Println(Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday)
 	fmt.Println(KB, MB, GB, TB)

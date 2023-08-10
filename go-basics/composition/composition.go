@@ -1,5 +1,5 @@
 /*
-Package composition demonstrates composition in Go programming
+Package main demonstrates composition in Go programming
 
 Object composition:
   - Go does not support inheritance, but this can be achieved through composition
@@ -13,7 +13,7 @@ Object composition:
 Interface composition:
   - Interface can compose the methods of other interfaces
 */
-package composition
+package main
 
 import "fmt"
 
@@ -66,8 +66,8 @@ type ReadWriter interface {
 	Writer // embed Writer interface
 }
 
-// Play demonstrates the composition in Go
-func Play() {
+// main demonstrates the composition in Go
+func main() {
 	// Initializing a folder
 	var folder Folder = Folder{Level: 1, CommonObject: CommonObject{Id: 1, Name: "folder"}}
 	folder.Print()

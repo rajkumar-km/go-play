@@ -1,5 +1,5 @@
 /*
-Package "packages" demontrate the use of packages in Go
+Package "main" demontrate the use of packages in Go
 
 DRY (Don't Repeat Yourself) principle is one of guidance of good quality software
 Packages are the next steps (after functions) for code Reusability, Modularity, Maintainability
@@ -14,7 +14,7 @@ Go convention is have the directory name same as package name
 
 The main package is special and is also called command. It is a executable where the programs starts.
 */
-package packages
+package main
 
 import (
 	// Go built in packages
@@ -32,11 +32,11 @@ import (
 	"rsc.io/quote"
 )
 
-// Play demonstrates defining and using packages in Go
+// main demonstrates defining and using packages in Go
 // 1. Using built in packages
 // 2. Creating and using our own packages
 // 3. Importing third party modules in our code
-func Play() {
+func main() {
 	// MaxInt64 is an exported name from math package
 	fmt.Println("Max value of int64: ", int64(math.MaxInt64))
 

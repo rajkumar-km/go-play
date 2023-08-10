@@ -1,17 +1,17 @@
 /*
-Package pointers demonstrates the use of pointers in Go programming
+Package main demonstrates the use of pointers in Go programming
 A pointer is a special type of variable that actual holds the memory address of
 an another variable.
 */
-package pointers
+package main
 
 import "fmt"
 
-// Play demonstrates the use of pointers in Go programming
+// main demonstrates the use of pointers in Go programming
 // - Declaring and assigning values to pointer
 // - Pointer to pointer
 // - No pointer arithmetic in Go, but pointers comparisions allowed
-func Play() {
+func main() {
 	// Declaring a Pointer of type T
 	// Syntax: var p *T
 	var p *int     // default to nil

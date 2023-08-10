@@ -1,12 +1,12 @@
-package concurrency
+package main
 
 import (
 	"fmt"
 	"sync"
 )
 
-// PlayWaitgroup demonstrates the waitgroup
-func PlayWaitGroup() {
+// DemoWaitgroup demonstrates the waitgroup
+func DemoWaitGroup() {
 	// A wait group can be used to wait for goroutine completion
 	var wg sync.WaitGroup
 

@@ -1,21 +1,21 @@
 /*
-Package maps demonstrates the use of maps in Go programming
+Package main demonstrates the use of maps in Go programming
 
 A map is an unordered collection of key-value pairs.
 Syntax:
 
 	var m map[KeyType]ValueType
 */
-package maps
+package main
 
 import "fmt"
 
-// Play demonostrates the use of maps in Go
+// main demonostrates the use of maps in Go
 // - Creating maps using var, make(), and map literals
 // - Adding, accessing, and deleting items from map
 // - Checking if a key exists in map
 // - Iterating maps
-func Play() {
+func main() {
 
 	// Create a map
 	var myMap map[string]int

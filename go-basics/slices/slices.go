@@ -1,21 +1,21 @@
 /*
-Package slices demonstrate the use of slices in Go
+Package main demonstrate the use of slices in Go
 
 Arrays are fixed in size which makes it not flexible. A slice is actually a
 reference pointing to subset of an array. Slice has length and capacity so that
 it can be variable in length. A slice can be extended up to its capacity and
 not beyond
 */
-package slices
+package main
 
 import "fmt"
 
-// Play demonstrates the use of slices in Go
+// main demonstrates the use of slices in Go
 // 1. Creating slices from slice literals
 // 2. Creating slices from array and other slice
 // 3. Creating slices using make function
 // 4. Slice functions copy(), append()
-func Play() {
+func main() {
 
 	// 1. Creating a slice using a slice literal
 	// Internally creates an array of size 5 and returns the slice reference to it

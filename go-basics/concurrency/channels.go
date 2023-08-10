@@ -1,12 +1,12 @@
-package concurrency
+package main
 
 import (
 	"fmt"
 	"time"
 )
 
-// PlayChannels demonstrates the use of Go channels
-func PlayChannels() {
+// DemoChannels demonstrates the use of Go channels
+func DemoChannels() {
 	// ----------------------------------
 	// 1. Create a channel of type string
 	// Note: Channels are goroutine safe

@@ -1,5 +1,5 @@
 /*
-Package structs demonstrates the use of structures in Go programming
+Package main demonstrates the use of structures in Go programming
 
 A struct is a user-defined type that contains a collection of named fields
 It is like a light weight class without inheritance (while supporting composition)
@@ -16,7 +16,7 @@ Structs are value types:
 Struct Equality:
 - Two struct variables are equal if all their corresponding fields are equal -
 */
-package structs
+package main
 
 import "fmt"
 
@@ -27,12 +27,12 @@ type Person struct {
 	firstName, lastName string
 }
 
-// Play demonstrates the use of structs in Go
+// main demonstrates the use of structs in Go
 // - Struct declaration and initialization
 // - Accessing the fields
 // - Pointer to struct
 // - Using new() function to create an instance of struct
-func Play() {
+func main() {
 	// Declaring and Initializing a struct
 	var person Person
 	person.lastName = "Alice"

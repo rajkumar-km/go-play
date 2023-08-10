@@ -1,5 +1,5 @@
 /*
-Package concurrency demonstrates the concurrency features in Go programming
+Package main demonstrates the concurrency features in Go programming
 
 Concurrency is directly built on Go's runtime scheduler - a piece of software.
 
@@ -54,15 +54,22 @@ Go scheduler:
 Priority based goroutines are not supported like linux scheduler.
 Not aware of system topologoy like NUMA
 */
-package concurrency
+package main
 
-// Play demonstrates the concurrency features in Go
+import "fmt"
+
+// main demonstrates the concurrency features in Go
 // - Goroutines
+// - WaitGroup
 // - Channels
 // - Select
-func Play() {
-	PlayGoroutines()
-	PlayWaitGroup()
-	PlayChannels()
-	PlaySelect()
+func main() {
+	fmt.Println("--- DemoGoroutines -------")
+  DemoGoroutines()
+  fmt.Println("--- DemoWaitGroup -------")
+	DemoWaitGroup()
+  fmt.Println("--- DemoDemoChannels -------")
+	DemoChannels()
+  fmt.Println("--- DemoSelect -------")
+	DemoSelect()
 }

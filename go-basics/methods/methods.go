@@ -1,5 +1,5 @@
 /*
-Package methods demonstates the use of methods in Go programming
+Package main demonstates the use of methods in Go programming
 
 Methods are just a function with a special receiver argument.
 It can also be written as normal function by passing the object as argument
@@ -17,7 +17,7 @@ Method definition restrictions:
 - Method can be defined on the same package - the receiver type is defined
 - It does not allow to define methods for built-in types or types defined in other packages.
 */
-package methods
+package main
 
 import (
 	"fmt"
@@ -50,8 +50,8 @@ func (s MyString) trim() string {
 	return strings.TrimSpace(string(s))
 }
 
-// Play demonstates the use of methods in Go
-func Play() {
+// main demonstates the use of methods in Go
+func main() {
 	p1 := Person{Id: 1, Name: "Alice"}
 	p1.Print()
 	// Go automatically passes the pointer as receiver (&p1)

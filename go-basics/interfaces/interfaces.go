@@ -1,5 +1,5 @@
 /*
-Package interfaces demonstrates the use of interfaces in Go programming
+Package main demonstrates the use of interfaces in Go programming
 
 An interface contains list of method declarations and provides abstraction.
 Concrete types can be implement all the methods to be compatiple with the
@@ -11,7 +11,7 @@ How does an interface type work with concrete values?
   - Example: [{65, 94}, main.Rectangle]
   - If an interface method is called, the corresponding method on the concrete type is called
 */
-package interfaces
+package main
 
 import "fmt"
 
@@ -58,10 +58,10 @@ type MyDrawing struct {
 	fgColor string
 }
 
-// Play demonstrates the use of interfaces in Go
+// Play main the use of interfaces in Go
 // - Create an implementation and assign to interface variable
 // - Invoke the functions through interface
-func Play() {
+func main() {
 	// An interface type can be assigned with any value that implements all of its methods
 	var s Shape = &Rectangle{Length: 65, Width: 94}
 	fmt.Printf("Type = %T, Value = %v, Area = %f\n", s, s, s.Area())

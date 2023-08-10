@@ -12,6 +12,30 @@ type Number interface {
 	int32 | float32
 }
 
+// main demonstrates Go generics
+func main() {
+	ints := map[string]int32{
+		"a": 1, "b": 2, "c": 3,
+	}
+	// Calling function can specify both type and ordinary arguments
+	sumInts := SumNumbers[string, int32](ints)
+	fmt.Println(sumInts)
+
+	floats := map[string]float32{
+		"x": 1.1, "y": 2.2, "z": 3.3,
+	}
+	// Calling function can omit type arguments since the compiler
+	// can determine from the argument "floats map[string]float32"
+	sumFloats := SumNumbers(floats)
+	fmt.Println(sumFloats)
+
+	// Type arguments can not be omitted always. For instance, when calling a
+	// function that takes no ordinary arguments. Example:
+	// func ReadNumber[T Number]() T
+	// must be called with
+	// intNum := ReadNumber[int32]()
+}
+
 // SumNumbers produces the sum of given numbers
 // [K comparable, V Number]: called Go type parameters
 //   - comparable is Go's builtin interface to support all types that can use
@@ -35,27 +59,4 @@ func SumNumbers[K comparable, V Number](numbers map[K]V) V {
 		sum += val
 	}
 	return sum
-}
-
-func main() {
-	ints := map[string]int32{
-		"a": 1, "b": 2, "c": 3,
-	}
-	// Calling function can specify both type and ordinary arguments
-	sumInts := SumNumbers[string, int32](ints)
-	fmt.Println(sumInts)
-
-	floats := map[string]float32{
-		"x": 1.1, "y": 2.2, "z": 3.3,
-	}
-	// Calling function can omit type arguments since the compiler
-	// can determine from the argument "floats map[string]float32"
-	sumFloats := SumNumbers(floats)
-	fmt.Println(sumFloats)
-
-	// Type arguments can not be omitted always. For instance, when calling a
-	// function that takes no ordinary arguments. Example:
-	// func ReadNumber[T Number]() T
-	// must be called with
-	// intNum := ReadNumber[int32]()
 }

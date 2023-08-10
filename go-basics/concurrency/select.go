@@ -1,12 +1,12 @@
-package concurrency
+package main
 
 import (
 	"fmt"
 	"time"
 )
 
-// PlaySelect demonstrates the use of select in Go
-func PlaySelect() {
+// DemoSelect demonstrates the use of select in Go
+func DemoSelect() {
 	c1 := make(chan string)
 	c2 := make(chan string)
 

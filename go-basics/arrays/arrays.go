@@ -1,19 +1,19 @@
 /*
-Package arrays demonstrates the arrays in Go programming
+Package main demonstrates the arrays in Go programming
 Arrays are fixed in size and stored in continuous memory
 Go array is a value type. So, assigning array to another variable makes a copy.
 Pointers can be used to work with array references.
 */
-package arrays
+package main
 
 import "fmt"
 
-// Play demontrates the use of arrays in Go programming
+// main demontrates the use of arrays in Go programming
 // - Array declaration and access by index
 // - Initiazing array with array literal
 // - Array iterations
 // - Multidimensional arrays
-func Play() {
+func main() {
 	simpleArray()
 	arrayLiteral()
 	iterateArray()
