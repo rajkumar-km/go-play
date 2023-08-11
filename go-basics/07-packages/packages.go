@@ -23,8 +23,8 @@ import (
 	"math/rand"
 
 	// Creating own packages
-	"github.com/rajkumar-km/go-play/go-basics/packages/mypkg"
-	"github.com/rajkumar-km/go-play/go-basics/packages/mypkg/mynestedpkg"
+	"github.com/rajkumar-km/go-play/go-basics/07-packages/mypkg"
+	"github.com/rajkumar-km/go-play/go-basics/07-packages/mypkg/mynestedpkg"
 
 	// Using third party modules
 	// go get rsc.io/quote // Go will also add this new dependency to the go.mod file.
