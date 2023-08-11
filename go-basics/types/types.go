@@ -5,8 +5,8 @@ package main
 
 import "fmt"
 
-// main demonstrates the types of variables supported in Go
-func main() {
+// DemoTypes demonstrates the types of variables supported in Go
+func DemoTypes() {
 	// Integer types
 	// int8, int16, int32, int64, int (32 bit on 32-bit arch, 64 bit on 64-bit arch)
 	// uint8, uint16, uint32, uint64, uint (32 bit on 32-bit arch, 64 bit on 64-bit arch)
