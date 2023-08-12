@@ -10,6 +10,18 @@ How does an interface type work with concrete values?
     of a value and a concrete type: [value, type]
   - Example: [{65, 94}, main.Rectangle]
   - If an interface method is called, the corresponding method on the concrete type is called
+
+Assigning interface with pointer and value types:
+  - Another point to remember is an interface can be assigned with both value and pointer type.
+  - A copy is made and stored in interface when value type is stored. So any changes to the
+    object is not reflected on the other side.
+  - Storing a pointer type always reflects the changes other side.
+
+Interface and methods with pointer receiver:
+  - If the interface is stored with a value type object, then it can not invoke methods with
+    pointer receiver.
+  - Because, the value stored in the interface is not addressable, so it can not dereference
+    it to pointer and invoke the method.
 */
 package main
 
@@ -32,12 +44,12 @@ type Rectangle struct {
 }
 
 // Area returns the area of Rectangle
-func (r *Rectangle) Area() float32 {
+func (r Rectangle) Area() float32 {
 	return r.Length * r.Width
 }
 
 // Perimeter returns the perimeter of Rectangle
-func (r *Rectangle) Perimeter() float32 {
+func (r Rectangle) Perimeter() float32 {
 	return 2 * (r.Length + r.Width)
 }
 
@@ -68,4 +80,13 @@ func main() {
 
 	var s2 Shape = &Rectangle{Length: 90, Width: 86}
 	fmt.Println("Sum of area =", SumOfAreas(s, s2))
+
+	// This isn't the usual way. Just for demonstration
+	// Assigning a value type to the interface makes a copy, so the original object remains
+	var orgObj Rectangle
+	orgObj.Length = 10.0
+	var s3 Shape = orgObj
+	copyObj := s3.(Rectangle)
+	copyObj.Length = 20.0 // updating interface obj does not reflect in original object
+	fmt.Printf("Original value: %f, Interface copy: %f\n", orgObj.Length, copyObj.Length)
 }
