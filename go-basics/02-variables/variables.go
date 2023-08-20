@@ -2,6 +2,8 @@
 Package main demonstrates the different ways to declare and initialize
 the Go variables.
 
+Go initializes all the variables to its corresponding zero value by default.
+
 Also, explains the order in which Go runs the program
   - Deep dependent packages are initialized first before the main package
   - For every dependent package, Global variables are initialized first, and
@@ -41,7 +43,9 @@ func main() {
 	var myVar4 = true
 	fmt.Printf("%T, %T, %T, %T\n", myVar1, myVar2, myVar3, myVar4)
 
-	// Short declaration with ":="
+	// Short declaration with ":=" is allowed only inside the function
+	// One can not easily understand the type from short declaration
+	// So, this is deliberately not allowed for global variables to improve readability
 	var1 := 20
 	var2 := 22.5
 	var3, var4 := "hello", "world"

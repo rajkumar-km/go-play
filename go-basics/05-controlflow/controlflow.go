@@ -49,6 +49,7 @@ func main() {
 	// Usage3a: for ; condition ; {}
 	// Usage3b: for condition {}
 	// Usage4: for {}
+	// Usage5: for i,val := range(values) {}
 	for i := 0; i < 10; i++ {
 		// Break/Continue
 		// break - break the loop
@@ -63,6 +64,7 @@ func main() {
 
 	// For loop with range
 	// Useful to iterate characters in string, arrays, slices, channels and maps
+	// The blank identifier _ can be used in place of i if the index is not required
 	for i, c := range "Hello" {
 		fmt.Printf("%d: %c\n", i, c)
 	}

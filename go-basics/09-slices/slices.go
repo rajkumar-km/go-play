@@ -4,7 +4,16 @@ Package main demonstrate the use of slices in Go
 Arrays are fixed in size which makes it not flexible. A slice is actually a
 reference pointing to subset of an array. Slice has length and capacity so that
 it can be variable in length. A slice can be extended up to its capacity and
-not beyond
+not beyond.
+
+However, the append() function can be used to append elements beyond its
+capacity. As a result, a new underlying array is created with double the
+capacity and resultant slice is returned.
+
+A slice can be accessed with a specific index s[i] or ranges s[m:n].
+  - Like most programmmings, all indexing in Go uses half open intervals
+    because it simplifies the logic
+  - For example, s[m:n] is 0 <= m <= n <= len(slice) and contains n-m elements.
 */
 package main
 
