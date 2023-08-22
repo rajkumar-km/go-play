@@ -4,4 +4,5 @@ use (
 	./go-advanced
 	./go-advanced/grpc/hello
 	./go-basics
+	./go-excercises
 )
