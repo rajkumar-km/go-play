@@ -15,9 +15,9 @@ package main
 
 import "fmt"
 
-// main function demontrates the typed variables, type inference, and
+// DemoVariables function demontrates the typed variables, type inference, and
 // short declarations
-func main() {
+func DemoVariables() {
 
 	// Typed variables (Go is statically typed language)
 	// Variables are initialized by default (0, 0.0, "", false)

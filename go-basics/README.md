@@ -42,3 +42,10 @@ but wherever it really makes sense. Please be aware of the confusion caused by r
     complex64, complex128, byte, rune, bool, string, error
   - Functions - new, make, len, cap, copy, append
     close, delete, complex, real, imag, panic, recover
+
+### 2. Declarations
+There are four major kind of declarations in Go:
+  - var - Variables
+  - const - Constants
+  - type - User defined types
+  - func - Functions
