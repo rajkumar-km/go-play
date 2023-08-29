@@ -22,8 +22,8 @@ func main() {
 	}
 
 	// Switch statement
-	// A short declaration is allowed in switch as well
-	switch dayOfweek := 5; dayOfweek {
+	dayOfweek := 5
+	switch dayOfweek {
 	case 1, 2, 3, 4, 5:
 		fmt.Println("Weekday")
 	case 6, 7:
@@ -32,8 +32,20 @@ func main() {
 		fmt.Println("Invalid")
 	}
 
-	// Switch with no expression is like if-else-if
-	var dayOfweek = 7
+	// Fallthrough next case of the switch
+	// Unlike C, break statement is not required after every case in Go
+	// However, if you want to execute the next case as well, then use fallthrough statement
+	// A short declaration is allowed in switch as well
+	switch state := 3; state {
+	case 3:
+		fmt.Println("In state 3, and checking for fallthrough")
+		fallthrough
+	case 4:
+		fmt.Println("In state 4")
+	}
+
+	// Tagless Switch with no expression is like if-else-if
+	dayOfweek = 7
 	switch {
 	case dayOfweek > 0 && dayOfweek < 6:
 		fmt.Println("Weekday")
