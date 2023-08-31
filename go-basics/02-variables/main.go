@@ -14,4 +14,8 @@ func main() {
 	// Lifetime of variables
 	fmt.Println("--- DemoLifetime -------")
 	DemoLifetime()
+
+	// Assignments
+	fmt.Println("--- DemoAssignments -------")
+	DemoAssignments()
 }
