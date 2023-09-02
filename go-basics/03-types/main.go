@@ -12,4 +12,8 @@ func main() {
 	// Type convertions
 	fmt.Println("--- DemoTypeConversion -------")
 	DemoTypeConversion()
+
+	// Named Type Declarations
+	fmt.Println("--- DemoTypeDeclaration -------")
+	DemoTypeDeclaration()
 }
