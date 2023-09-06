@@ -5,8 +5,8 @@ import (
 )
 
 // go test . -bench=. -count=100
-// PopCountV0 = less than 0.15 seconds
-// PopCountV1 = less than 3.7 seconds !!!
+// PopCountV0 = less than 0.15 ns/op
+// PopCountV1 = took 3.7 ns/op
 
 func BenchmarkPopCountV0(b *testing.B) {
 	for i := 0; i < b.N; i++ {

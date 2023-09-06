@@ -24,7 +24,7 @@ func init() {
 }
 
 // PopCountV0 returns the population count (number of set bits) of x.
-// PopCountV0 = less than 0.15 seconds
+// PopCountV0 = less than 0.15 ns/op
 func PopCountV0(x uint64) int {
 	return int(pc[byte(x>>(0*8))] +
 		pc[byte(x>>(1*8))] +
@@ -37,7 +37,7 @@ func PopCountV0(x uint64) int {
 }
 
 // PopCountV1 simplifies the PopCountV0 with a for range loop
-// PopCountV1 = took 3.7 seconds in benchmark
+// PopCountV1 = took 3.7 ns/op in benchmark
 func PopCountV1(x uint64) int {
 	var c int = 0
 	for i := 0; i < 8; i++ {
