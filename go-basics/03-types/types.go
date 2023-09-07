@@ -52,12 +52,4 @@ func DemoTypes() {
 	var myComplex2 complex64 = 3 + 4i
 	var myComplex3 = complex(myFloat, myFloat64) // always use same bits in real and imaginary part.
 	fmt.Println(myComplex, myComplex2, myComplex3)
-
-	// Supported operators in Go
-	// * Arithmetic Operators: +, -, *, /, %
-	// * Comparison Operators: ==, !=, <, >, <=, >=
-	// * Bitwise Operators: &, |, ^, <<, >>
-	// * Increment and Decrement Operators: ++, --
-	// * Assignment Operators: +=, -=, *=, /=, %=, <<=, >>=, &=, |=, ^=
-	// * Logical Operators: &&, ||, !
 }

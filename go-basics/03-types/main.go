@@ -8,7 +8,7 @@ func main() {
 	// Demo types
 	fmt.Println("--- DemoTypes -------")
 	DemoTypes()
-	
+
 	// Type convertions
 	fmt.Println("--- DemoTypeConversion -------")
 	DemoTypeConversion()
@@ -16,4 +16,8 @@ func main() {
 	// Named Type Declarations
 	fmt.Println("--- DemoTypeDeclaration -------")
 	DemoTypeDeclaration()
+
+	// Bitwise operations on Integers
+	fmt.Println("--- DemoBitwise -------")
+	DemoBitwise()
 }

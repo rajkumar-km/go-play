@@ -7,22 +7,22 @@ import "fmt"
 
 // DemoTypeConversion demonstrates Go type conversions
 func DemoTypeConversion() {
-	demoTypecast()
+	demoTypeConv()
 	demoTypeAssert()
 	demoTypeSwitch()
 }
 
-// demoTypecast demonstrates converting one type to another
+// demoTypeConv demonstrates converting one type to another
 // Perform type convertion in Go by T(v). Converts value v to type T.
 // Unlike C, Go does not perform implicit type conversion for safety (like buffer overflow)
-// Explicit typecast is required for everything even for adding two numeric types.
+// Explicit type conversion is required for everything even for adding two numeric types.
 // Conversion are allowed in numeric, string, and some slice types
 // Conversion between incompatiple types are reported at compile time. So, in any case,
 // a conversion never fails at run time
-func demoTypecast() {
+func demoTypeConv() {
 	// conversion between numeric types
 	var intVal = 5
-	var floatVal = 3.14	
+	var floatVal = 3.14
 	var sum = floatVal + float64(intVal)
 	fmt.Printf("floatVal + float64(intVal) = %f\n", sum)
 
@@ -45,12 +45,15 @@ func demoTypecast() {
 }
 
 // demoTypeAssert shows how to assertain the actual type stored in an interface.
-// An interface{} variable is capable of storing data of any type. Go provides 
+// An interface{} variable is capable of storing data of any type. Go provides
 // few ways to determine the actual type stored in the variable.
 // Example to use when you are sure about the underlying type:
+//
 //	var data interface{} = 10
 //	myInt := data.(int) // Note: If the data is not int, then it causes panic.
+//
 // Example to assert the type without causing panic
+//
 //	myInt, ok := data.(int)
 func demoTypeAssert() {
 	var data interface{} = 10
@@ -68,7 +71,7 @@ func demoTypeAssert() {
 		fmt.Printf("data.(float32) = %f\n", myFloat)
 	} else {
 		fmt.Printf("data is not float32\n")
-	}	
+	}
 }
 
 // demoTypeSwitch shows the Go type switch to handle multiple types
