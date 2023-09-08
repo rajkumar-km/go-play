@@ -20,4 +20,8 @@ func main() {
 	// Bitwise operations on Integers
 	fmt.Println("--- DemoBitwise -------")
 	DemoBitwise()
+
+	// Type assertions
+	fmt.Println("--- DemoTypeAssertion -------")
+	DemoTypeAssertion()
 }
