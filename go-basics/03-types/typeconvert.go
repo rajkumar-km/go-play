@@ -8,8 +8,6 @@ import "fmt"
 // DemoTypeConversion demonstrates Go type conversions
 func DemoTypeConversion() {
 	demoTypeConv()
-	demoTypeAssert()
-	demoTypeSwitch()
 }
 
 // demoTypeConv demonstrates converting one type to another
