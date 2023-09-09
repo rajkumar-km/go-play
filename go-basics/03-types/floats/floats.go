@@ -1,9 +1,18 @@
+/*
+floats demonstrates the Go floating point types in detail
+*/
 package main
 
 import (
 	"fmt"
 	"math"
 )
+
+func main() {
+	// Floats
+	fmt.Println("--- DemoFloats -------")
+	DemoFloats()
+}
 
 // DemoFloats demonstrates the floating-point numbers in Go.
 // - Go follows the IEEE 754 standard implemented by all modern CPUs
