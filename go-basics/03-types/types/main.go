@@ -17,10 +17,6 @@ func main() {
 	fmt.Println("--- DemoTypeDeclaration -------")
 	DemoTypeDeclaration()
 
-	// Bitwise operations on Integers
-	fmt.Println("--- DemoBitwise -------")
-	DemoBitwise()
-
 	// Type assertions
 	fmt.Println("--- DemoTypeAssertion -------")
 	DemoTypeAssertion()
