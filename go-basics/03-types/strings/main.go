@@ -13,4 +13,8 @@ func main() {
 	// Demo unicode
 	fmt.Println("--- DemoUnicode -------")
 	DemoUnicode()
+
+	// Demo byte slices
+	fmt.Println("--- DemoBytes -------")
+	DemoBytes()
 }
