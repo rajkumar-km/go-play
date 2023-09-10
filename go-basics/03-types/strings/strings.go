@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 // DemoString demonstrates the string type in Go.
 // - A string is a immutable sequence of bytes
@@ -56,4 +59,33 @@ func DemoString() {
 	octInLiteral := "\377"
 	hexInLiteral := "\xff"
 	fmt.Println(octInLiteral, hexInLiteral)
+
+	// The built-in package strings contains several helpers to work with strings
+	// See an example for strings.LastIndex
+	fmt.Println("basename = ", basename("/var/run/process.pid"))
+
+	// See an another example
+	fmt.Println(comma("123"), comma("123456"), comma("1234567"))
+}
+
+// basename mimics the Unix basename utility
+// Example: basename("/var/run/process.pid") returns "process" after removing
+// base directories and file extension.
+// Anyway the path/filepath package contains the similar function that works across platforms
+func basename(s string) string {
+	lastSlash := strings.LastIndex(s, "/") // -1 if not found
+	s = s[lastSlash+1:]
+	if lastDot := strings.LastIndex(s, "."); lastDot >= 0 {
+		s = s[:lastDot]
+	}
+	return s
+}
+
+// comma inserts a comma after every 3 digits
+// Example: 1234567 becomes 1,234,567
+func comma(s string) string {
+	for i := len(s); i > 3; i -= 3 {
+		s = s[:i-3] + "," + s[i-3:]
+	}
+	return s
 }
