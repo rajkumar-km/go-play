@@ -9,4 +9,8 @@ func main() {
 	// Demo string type
 	fmt.Println("--- DemoString -------")
 	DemoString()
+
+	// Demo unicode
+	fmt.Println("--- DemoUnicode -------")
+	DemoUnicode()
 }
