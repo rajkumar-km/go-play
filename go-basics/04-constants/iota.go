@@ -46,11 +46,11 @@ const (
 
 // Another good example is doing bitwise operations with iota
 const (
-	_  = 1 << (iota * 10) // 1 << (iota=0 * 10) = 0
-	KB                    // 1 << (iota=1 * 10) = 1024
-	MB                    // 1 << (iota=2 * 10) = 1048576
-	GB                    // 1 << (iota=3 * 10) = 1073741824
-	TB                    // 1 << (iota=4 * 10) = 1099511627776
+	_   = 1 << (iota * 10) // 1 << (iota=0 * 10) = 0
+	KiB                    // 1 << (iota=1 * 10) = 1024
+	MiB                    // 1 << (iota=2 * 10) = 1048576
+	GiB                    // 1 << (iota=3 * 10) = 1073741824
+	TiB                    // 1 << (iota=4 * 10) = 1099511627776
 )
 
 // If iota is used outside the const block, then it will always be zero
@@ -58,8 +58,8 @@ const zeroInt int = iota       // 0
 const zeroFloat float32 = iota // 0
 
 // DemoIotaSamples demonstrates the various usages of iota
-func DemoIotaSamples() {
+func DemoIota() {
 	fmt.Println(Fatal, Error, Warn, Info, Debug, Trace)
 	fmt.Println(Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday)
-	fmt.Println(KB, MB, GB, TB)
+	fmt.Println(KiB, MiB, GiB, TiB)
 }

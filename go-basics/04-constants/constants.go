@@ -1,11 +1,17 @@
-/*
-main demonstrates the constants in Go programming
-*/
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 // DemoConstants demonstrates the the typed and untyped constants in Go
+//   - Looks like variable declaration but use a const keyword
+//   - Values can not be changed once initialized
+//   - The underlying types are strings, numeric, and boolean types
+//   - Constants are evaluated at compile time. So, the results of all arithmetic, comparision,
+//     and logical operations applied to constants are are themselves constants and it will be
+//     evaluated at compile time. Thus saves the run time.
 func DemoConstants() {
 	// All the literals in Go are constants without a name
 	fmt.Println(1, 3.17, "Hello", 'C', false, 1+2.7i)
@@ -16,13 +22,21 @@ func DemoConstants() {
 	// use all formats like variable declaration and initialization
 
 	// UnTyped constants - constants without explicit type specification
-	// These can be used for assignment with any compatiple types (say number 10 can be assigned to int64, float64, and etc.,)
+	// - This includes: untyped bool, untyped integer, untyped rune, untyped float, untyped
+	//   complex, and untyped string
+	// - These untyped flavours determine the actual type for variables (say an untyped float
+	//   becomes float64)
+	// - These can be used for assignment with any compatiple types (say number 10 can be assigned
+	//   to int64, float64, and etc.,)
+	// - Only constants can be untyped. If untyped constants are assigned to variables, then the
+	//   variable infers the specific type automatically
 	const myUntypedNumber = 10
 	const myUntypedStr = "Hello"
-	const assign float32 = myUntypedNumber
+	var assign float32 = myUntypedNumber
 	fmt.Println(assign)
 
 	// Typed constants comparision
+	const dur = 5 * time.Minute // Go infers as the type of time.Minute which is time.Duration
 	const myTypedInt int = 10
 	const myTypedStr string = "World"
 	type RichString string                            // Typename alias
@@ -48,15 +62,21 @@ func DemoConstants() {
 	)
 	fmt.Println(mySum, myCharC)
 
-	var divided = 10 / 4
-	fmt.Printf("10/4 = %v (%T)\n", divided, divided)
-	// Either use float number or explicit cast to float type to get the correct result
-	var divided2 = 10.0 / 4
-	fmt.Printf("10.0/4 = %v (%T)\n", divided2, divided2)
+	// Constants within a block
+	// If type/value is not specified, it can infer the same from previous constants
+	// It can not be omitted for the first constant
+	const (
+		X = 1.0 // untyped float
+		Y       // untyped float of 1. Infers both type and value from previous constant X
+		Z = 'a' // untyped rune
+		A       // untyped rune of 'a'
+	)
 
-	var result = 4.5 + 5/2 // returns 6.5
-	fmt.Printf("4.5 + 5/2 = %v (%T)\n", result, result)
-	// Either use float number or explicit cast to float type to get the correct result
-	var result2 = 4.5 + float64(5)/2 // returns 7.0
-	fmt.Printf("4.5 + float64(5)/2 = %v (%T)\n", result2, result2)
+	// Overflow and underflow are reported as compile error during the conversion
+	// Rounding is allowed for float/complex
+	const c0 = float32(0xdeadbeef) // rounded up from 3735928559 to 3735928576
+	// const c1 := int32(0xdeadbeef) // overflow
+	// const c2 := float64(1e309)    // overflow
+	// const c3 := uint(-1)          // underflow
+
 }
