@@ -11,10 +11,14 @@ func main() {
 	DemoString()
 
 	// Demo unicode
-	fmt.Println("--- DemoUnicode -------")
+	fmt.Println("\n--- DemoUnicode -------")
 	DemoUnicode()
 
 	// Demo byte slices
-	fmt.Println("--- DemoBytes -------")
+	fmt.Println("\n--- DemoBytes -------")
 	DemoBytes()
+
+	// Demo string conversions
+	fmt.Println("\n--- DemoStrconv -------")
+	DemoStrconv()
 }
