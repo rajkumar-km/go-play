@@ -2,9 +2,12 @@
 Package main demonstrate the use of slices in Go
 
 Arrays are fixed in size which makes it not flexible. A slice is actually a
-reference pointing to subset of an array. Slice has length and capacity so that
-it can be variable in length. A slice can be extended up to its capacity and
+reference pointing to subset of an array. Slice has a pointer to base array, length
+and capacity so that it can be variable in length. A slice can be extended up to its capacity and
 not beyond.
+
+Assigning a slice to another variable is like an alias. Or passing a slice only passes the reference.
+The copy() function can be used to copy the contents of a slice
 
 However, the append() function can be used to append elements beyond its
 capacity. As a result, a new underlying array is created with double the
@@ -29,7 +32,8 @@ func main() {
 	// 1. Creating a slice using a slice literal
 	// Internally creates an array of size 5 and returns the slice reference to it
 	mySlice := []string{"A", "B", "C"}
-	fmt.Println(mySlice, "len=", len(mySlice), "cap=", cap(mySlice))
+	fmt.Println(`Creating new slice from literal`)
+	fmt.Printf("\ts = %#v, len=%d, cap=%d\n", mySlice, len(mySlice), cap(mySlice))
 
 	// 2. Creating a slice from an array
 	// slice := array[low:high] // slice points to low..high-1 elements
@@ -41,40 +45,51 @@ func main() {
 	// Slice =    [1, 2, 3]
 	//            <--len-->
 	//            <----cap--->
+	fmt.Println(`Creating slices from array`)
 	myArray := [6]string{"India", "Russia", "China", "USA", "Canada", "Brazil"}
-	mySlice1 := myArray[3:5] // North America
-	fmt.Println(mySlice1, "len=", len(mySlice1), "cap=", cap(mySlice1))
+	fmt.Printf("\ta      = %#v, len=%d, cap=%d\n", myArray, len(myArray), cap(myArray))
 
-	mySlice2 := myArray[:3] // Asia
-	fmt.Println(mySlice2, "len=", len(mySlice2), "cap=", cap(mySlice2))
+	asia := myArray[:3] // Asia
+	fmt.Printf("\tasia         = a[:3]  = %v, len=%d, cap=%d\n", asia, len(asia), cap(asia))
 
-	mySlice3 := myArray[3:] // America
-	fmt.Println(mySlice3, "len=", len(mySlice3), "cap=", cap(mySlice3))
+	america := myArray[3:] // America
+	fmt.Printf("\tamerica      = a[3:]  = %v, len=%d, cap=%d\n", america, len(america), cap(america))
+
+	all := myArray[:] // All
+	fmt.Printf("\tall          = a[:]   = %v, len=%d, cap=%d\n", all, len(all), cap(all))
 
 	// Modifying a slice affects the original array since it is holding the reference
-	mySlice3[0] = "U.S.A"
-	fmt.Println(myArray, mySlice1) // notice the changes in original array and other slices
-
-	mySlice4 := myArray[:] // All
-	fmt.Println(mySlice4, "len=", len(mySlice4), "cap=", cap(mySlice4))
+	america[0] = "U.S.A"
+	fmt.Println("Modifying a slice affects the base array so it reflects in other slices that uses the same base array")
+	fmt.Printf("\tamerica[0]   = \"U.S.A\"\n")
+	fmt.Printf("\ta            = %v\n", myArray)
+	fmt.Printf("\tall          = %v\n", all) // notice the changes in original array and other slices
+	fmt.Printf("\tamerica      = %v\n", america)
 
 	// 3. Creating a slice from another slice
 	// The new slice still referencing to the original array and uses its capacity
 	// Multiple slices can be created from the same array and all holding same references
-	mySliceOfSlice := mySlice1[1:2]
-	fmt.Println(mySliceOfSlice, "len=", len(mySliceOfSlice), "cap=", cap(mySliceOfSlice))
+	northAmerica := america[:2] // North America
+	fmt.Println(`New slices can be created from existing slices`)
+	fmt.Printf("\tnorthAmerica = america[:2] = %v, len=%d, cap=%d\n", northAmerica, len(northAmerica), cap(northAmerica))
+
+	allAfterAsia := asia[:6]
+	fmt.Println("\t// It can extend the current slice, but within the capacity")
+	fmt.Printf("\tasia         = a[:3]  = %v, len=%d, cap=%d\n", asia, len(asia), cap(asia))
+	fmt.Printf("\tallAfterAsia = asia[:6] = %v, len=%d, cap=%d\n", allAfterAsia, len(allAfterAsia), cap(allAfterAsia))
 
 	// 4. Creating a slice using the built-in make() function
 	// The make function takes a type, a length, and an optional capacity.
 	// It allocates an underlying array with size equal to the given capacity, and returns a slice that refers to that array.
-	mySlice5 := make([]int, 5, 10)
-	fmt.Println(mySlice5, "len=", len(mySlice5), "cap=", cap(mySlice5))
-
-	// 5. Zero value of slices
-	var nilSlice []int
-	if nilSlice == nil {
-		fmt.Println("nil")
+	fmt.Println(`Creating a slice using make`)
+	var s []int
+	fmt.Printf("\tSlices are by default initialized to nil. Either use make(), or a slice literal to initialize\n")
+	fmt.Printf("\tvar s[]int, s == nil: %v\n", s == nil)
+	if s == nil { // should be true
+		s = make([]int, 5, 10)
 	}
+	fmt.Printf("\ts := make([]int, 5, 10)\n")
+	fmt.Printf("\ts = %v, len=%d, cap=%d\n", s, len(s), cap(s))
 
 	// Slice Functions
 	// 1. The copy() function: copying a slice
@@ -117,14 +132,21 @@ func main() {
 		{"A", "B"},
 		{"C", "D"},
 	}
-	fmt.Println(mySofS)
-
-	// Iterating over a slice
-	for i := 0; i < len(mySofS); i++ {
-		fmt.Println(i, mySofS[i])
-	}
+	
 	// Iterating over a slice using range operator
 	for _, v := range mySofS {
 		fmt.Println(v)
+	}
+
+	// Slice can also be iterated using indexes
+	hello := []byte("hello")
+	reverse(hello)
+	fmt.Printf("reverse(%q) = %q\n", "hello", hello)
+}
+
+// reverse reverses the given byte string
+func reverse(s []byte) {
+	for i,j:=0,len(s)-1; i < j; i,j=i+1,j-1 {
+		s[i],s[j] = s[j],s[i]
 	}
 }
