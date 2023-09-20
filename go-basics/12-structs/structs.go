@@ -36,6 +36,7 @@ func main() {
 	createStructs()
 	pointerToStructs()
 	emptyStruct()
+	structConvertCompare()
 }
 
 // createStructs demonstrates:
@@ -57,8 +58,18 @@ func createStructs() {
 	fmt.Println(`person2 := Person{id: 1, lastName: "Alice"} // struct literal`)
 	fmt.Printf("\t%#v\n", person2)
 
+	// The short form of struct literal used only when:
+	// - Structs that has fixed fields and not expected to change (eg, Point(x, y), RGBA(r,g,b,a))
+	// - Within the package if required. In case if the struct has unexported fields, then this
+	//   form can not be used from other packages.
+	// - The order matters when specifying values
+	// - All the values must be provided and we can not omit fields unlike the other form
+	person3 := Person{3, 35, "joe", "carter"}
+	fmt.Println(`person3 := Person{3, 35, "joe", "carter"} // all fields must be specified and in order`)
+	fmt.Printf("\t%#v\n", person3)
+
 	// Note: A trailing comma is mandatory when breaking down as seperate lines
-	person3 := Person{
+	person4 := Person{
 		id:        2,
 		lastName:  "Bob",
 		age:       33,
@@ -66,7 +77,7 @@ func createStructs() {
 	}
 
 	// Accessing fields of a struct
-	person3.firstName = "Alice"
+	person4.firstName = "Alice"
 	fmt.Printf("Struct fields can be accessed like: person.firstNam\n")
 	fmt.Printf("\tperson.firstName = \"Alice\"\n")
 	fmt.Printf("\tperson.firstName // returns %q\n", person3.firstName)
@@ -76,19 +87,22 @@ func createStructs() {
 // and using the new() function to create an instance of struct
 func pointerToStructs() {
 	// Pointer to a struct
-	person4 := &Person{id: 1} // or person4 := Person{} and ptr := &person4
+	// Using &T{..} is equivalent to new(T). This would create a variable of type T
+	// and returns the address. So this can even be passed to functions directly
+	// without assigning to a pointer variable.
+	person := &Person{id: 1} // or person := Person{} and ptr := &person
 	fmt.Println(`Pointers and structs`)
-	fmt.Printf("\tperson4 := %#v\n", person4)
-	fmt.Printf("\t(*person4).id = %d\n", (*person4).id)
+	fmt.Printf("\tperson := %#v\n", person)
+	fmt.Printf("\t(*person).id = %d\n", (*person).id)
 	// Same as above, Go automatically dereference the pointer and access the field
-	fmt.Printf("\tperson4.id = %d // go automatically dereference the pointer\n", person4.id)
+	fmt.Printf("\tperson.id = %d // go automatically dereference the pointer\n", person.id)
 
 	// Note:  The assignment is not valid if the left hand side is not variable
 	// (Person{}).age = 10 // compile error: UnassignableOperand
 	(&Person{}).age = 10 // valid when assigning to pointer
 
 	// Unlike map values, struct fields are addressable
-	p := &person4.id
+	p := &person.id
 	*p = 4
 
 	// Using the new() function
@@ -102,7 +116,7 @@ func pointerToStructs() {
 	// A struct can not contain a field with type of itself, but it can have pointer so that
 	// a linked list or tree can be implemented
 	type BinaryTree struct {
-		val int
+		val         int
 		left, right *BinaryTree
 	}
 }
@@ -122,9 +136,39 @@ func emptyStruct() {
 	set := make(map[string]struct{})
 	for scanner.Scan() {
 		word := scanner.Text()
-		if _, ok := set[word] ; !ok {
+		if _, ok := set[word]; !ok {
 			set[word] = struct{}{}
 			fmt.Print(" ", word)
 		}
 	}
+
+	fmt.Println() // prints a newline
+}
+
+// structConvertCompare demonstrates converting and comparing one struct to another
+func structConvertCompare() {
+	type restPerson struct {
+		ID                  int `json:"id"`
+		firstName, lastName string
+	}
+
+	type grpcPerson struct {
+		ID int `json:"ID"`
+		// Note: the order must be same for conversion
+		// Convertion would fail If we declare like "lastName, firstName string"
+		firstName, lastName string
+	}
+
+	rjoe := restPerson{ID: 1, firstName: "Joe", lastName: "Carter"}
+	gjoe := grpcPerson(rjoe)
+	fmt.Println(`Struct objects can be converted to one type another provided:
+	- All the field name and types are equal
+	- The fields are declared in the exact same order
+	- Tags does not matter from go 1.8`)
+
+	expected := grpcPerson{ID: 1, firstName: "Joe", lastName: "Carter"}
+	fmt.Println(`Struct objects can be compared if:
+	- all the fields in the struct are comparable
+	- So, a comparable struct can even be used as "key" in a map`)
+	fmt.Println("\tcompare status: ", gjoe == expected)
 }
