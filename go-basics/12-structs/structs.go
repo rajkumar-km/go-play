@@ -37,6 +37,7 @@ func main() {
 	pointerToStructs()
 	emptyStruct()
 	structConvertCompare()
+	// Also, look at 15-composition/struct.go to learn about inheritance by embedding structs
 }
 
 // createStructs demonstrates:
