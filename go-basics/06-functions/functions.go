@@ -35,17 +35,19 @@ import (
 
 // main demonstrates the Go function calls
 func main() {
+	// Simple function
 	fmt.Println("Simple function")
 	res := sum(10, 5)
 	fmt.Println("\tfunc sum(x int, y int) int:")
 	fmt.Println("\tsum(10, 5) =", res)
 
+	// Function returning multiple values
 	fmt.Println("Function with multiple return values")
 	res2, _ := div(10, 5) // Use blank identifer "_" to ignore return values from the caller
 	fmt.Println("\tfunc div(x, y int) (int,error)")
 	fmt.Println("\tdiv(10, 5) =", res2)
 
-	// Error handling
+	// Function with named return values
 	fmt.Println("Function with named return value parameters")
 	res3 := sub(10, 5)
 	fmt.Println("\tfunc sub(x, y int) (result int)")
@@ -87,8 +89,9 @@ func div(x, y int) (int, error) {
 func sub(x, y int) (result int) {
 	result = (x - y)
 	// Return values are optional, so an empty return statement is enough.
-	// Go automatically returns the named return values
-	return
+	// Go automatically returns the named return values. But use this sparingly since it is
+	// hard to understand when having multiple return values
+	return // bare return
 }
 
 // Function with blank identifer as parameters
