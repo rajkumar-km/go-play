@@ -55,6 +55,10 @@ func main() {
 	fmt.Println("Function with unnamed input parameters")
 	fmt.Println("\tfunc one(int, _ int) int:", one(1, 0))
 	fmt.Println("\tfunc zero(int, int) int:", zero(1, 0))
+
+	// Recursive function
+	fmt.Println("Recursive function")
+	fmt.Printf("\tfactorial(%d)= %d\n", 5, factorial(5))
 }
 
 // sum add two integers and returns the sum
@@ -103,4 +107,14 @@ func one(int, _ int) int {
 // But, here both the variables are int, so we can not access them
 func zero(int, int) int {
 	return 0
+}
+
+// factorial returns the factorial number of n
+// n! = n * (n - 1) * (n - 2) * ... * 1
+// Note that it uses recursive calls for calculation
+func factorial(n uint) uint {
+	if n == 1 {
+		return 1
+	}
+	return n * factorial(n-1)
 }
