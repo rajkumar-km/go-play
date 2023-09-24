@@ -35,55 +35,56 @@ import (
 
 // main demonstrates the Go function calls
 func main() {
-	result := sum(10, 20, "10+20=")
-	fmt.Println(result)
+	fmt.Println("Simple function")
+	res := sum(10, 5)
+	fmt.Println("\tfunc sum(x int, y int) int:")
+	fmt.Println("\tsum(10, 5) =", res)
 
-	// Blank identifer "_" to ignore function return values from the caller
-	result2, _ := div(10, 5, "10/5=")
-	fmt.Println(result2)
+	fmt.Println("Function with multiple return values")
+	res2, _ := div(10, 5) // Use blank identifer "_" to ignore return values from the caller
+	fmt.Println("\tfunc div(x, y int) (int,error)")
+	fmt.Println("\tdiv(10, 5) =", res2)
 
 	// Error handling
-	result2, err := div2(10, 0, "10/0=")
-	if err != nil {
-		fmt.Println(err)
-	} else {
-		fmt.Println(result2)
-	}
+	fmt.Println("Function with named return value parameters")
+	res3 := sub(10, 5)
+	fmt.Println("\tfunc sub(x, y int) (result int)")
+	fmt.Println("\tsub(10, 5) =", res3)
 
-	fmt.Println(one(1, 0))
-	fmt.Println(zero(1, 0))
+	// Function with unnamed parameters
+	fmt.Println("Function with unnamed input parameters")
+	fmt.Println("\tfunc one(int, _ int) int:", one(1, 0))
+	fmt.Println("\tfunc zero(int, int) int:", zero(1, 0))
 }
 
-// sum is a simple function
-func sum(arg1 int, arg2 int, arg3 string) int {
-	fmt.Print(arg3)
-	result := arg1 + arg2
+// sum add two integers and returns the sum
+func sum(x int, y int) int {
+	result := x + y
 	return result
 }
 
-// div function supports multiple return values with error type
-func div(arg1, arg2 int, arg3 string) (int, error) {
+// div performs division operation and returns the result
+// Note that we can combine input parameters having same type. Don't need to repeat the type
+// Also note that the function has multiple return values with error type
+func div(x, y int) (int, error) {
 	result := 0
 	var err error = nil
-	fmt.Print(arg3)
-	if arg2 == 0 {
+	if y == 0 {
 		err = errors.New("can not divide by zero")
 	} else {
-		result = (arg1 / arg2)
+		result = (x / y)
 	}
 	return result, err
 }
 
-// div2 with named return values (all return values must be named, can not mix)
+// sub perform subtraction and returns the result
+// Note the named return value parameters (all return values must be named, can not mix)
 // Go declares the variables for return values
-func div2(arg1, arg2 int, arg3 string) (result int, err error) {
-	fmt.Print(arg3)
-	if arg2 == 0 {
-		err = errors.New("can not divide by zero")
-	} else {
-		result = (arg1 / arg2)
-	}
-	return // Optional to provide return values. Plain return statement automatically returns the named return values
+func sub(x, y int) (result int) {
+	result = (x - y)
+	// Return values are optional, so an empty return statement is enough.
+	// Go automatically returns the named return values
+	return
 }
 
 // Function with blank identifer as parameters
@@ -91,7 +92,7 @@ func div2(arg1, arg2 int, arg3 string) (result int, err error) {
 // interface. But the implementation does not require all the parameters. So, we can use
 // blank identifier to indicate compiler as well as other developers that the argument is
 // not used in the function
-// 
+//
 // Secondly, an unnamed parameter (without blank identifier) is generally assigned with the same
 // as the data type
 func one(int, _ int) int {
