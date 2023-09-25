@@ -1,31 +1,3 @@
-/*
-function demonstrates the functions in Go programming
-  - function let us wrap the sequence of statements that can be reused
-    func name(parameter-list) (result-list) {
-    body
-    }
-  - parameter-list - function parameters which are local variables to function
-  - result-list - return value parameters. parenthesis can be ignored if zero or one unnamed return
-    value.
-  - body contains the statements. Sometimes the function is just declared without { body }. This
-    means the function is implemented in other language other than Go.
-
-Go functions work as call-by-value
-  - A copy of all the input parameters are available inside the function. So the changes does
-    not affect the original variable.
-  - However, if you pass pointers, slice, map, chan, or function, then it affects the original
-    value. Still it is call-by-value, because it copies the small structure holding the pointer
-    or other references types. But the structure internall points to the same memory location
-    that affects the original value.
-
-Go does not provide overloading. Here is the reason from Go:
-  - Method dispatch is simplified if it doesn't need to do type matching as well.
-  - Experience with other languages told us that having a variety of methods with the same name
-    but different signatures was occasionally useful but that it could also be confusing and
-    fragile in practice.
-  - Matching only by name and requiring consistency in the types was a major simplifying decision
-    in Go's type system.
-*/
 package main
 
 import (
@@ -33,8 +5,33 @@ import (
 	"fmt"
 )
 
-// main demonstrates the Go function calls
-func main() {
+// DemoFunctions demonstrates the functions in Go programming
+//   - function let us wrap the sequence of statements that can be reused
+//     func name(parameter-list) (result-list) {
+//     body
+//     }
+//   - parameter-list - function parameters which are local variables to function
+//   - result-list - return value parameters. parenthesis can be ignored if zero or one unnamed return
+//     value.
+//   - body contains the statements. Sometimes the function is just declared without { body }. This
+//     means the function is implemented in other language other than Go.
+//
+// Go functions work as call-by-value
+//   - A copy of all the input parameters are available inside the function. So the changes does
+//     not affect the original variable.
+//   - However, if you pass pointers, slice, map, chan, or function, then it affects the original
+//     value. Still it is call-by-value, because it copies the small structure holding the pointer
+//     or other references types. But the structure internall points to the same memory location
+//     that affects the original value.
+//
+// Go does not provide overloading. Here is the reason from Go:
+//   - Method dispatch is simplified if it doesn't need to do type matching as well.
+//   - Experience with other languages told us that having a variety of methods with the same name
+//     but different signatures was occasionally useful but that it could also be confusing and
+//     fragile in practice.
+//   - Matching only by name and requiring consistency in the types was a major simplifying decision
+//     in Go's type system.
+func DemoFunctions() {
 	// Simple function
 	fmt.Println("Simple function")
 	res := sum(10, 5)
