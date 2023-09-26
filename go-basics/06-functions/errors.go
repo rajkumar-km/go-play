@@ -2,8 +2,10 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"log"
 	"net/http"
+	"time"
 
 	"golang.org/x/net/html"
 )
@@ -48,13 +50,28 @@ import (
 //   - So a function tends to handle multiple errors on top and return. Finally the sustance
 //     of the function.
 func DemoErrors() {
+	// 1. Propagate the error
 	links, err := fetchlinks("https://golang.org")
 	if err != nil {
-		// Ignore the error and proceed
-		// get failed: Get "https://golang.orgg": dial tcp: lookup golang.orgg: no such host
-		log.Printf("get failed: %v", err)
+		// Ignore the error and proceed without printing links
+		log.Printf("fetchlinks failed: %v", err)
+	} else {
+		log.Printf("Found %d links\n", len(links))
 	}
-	fmt.Println(links)
+
+	// 2. Retry
+	resp, err := getTimeout("https://golang.osrg", 5 * time.Second)
+	if err != nil {
+		// Ignore the error and proceed with limited functionality
+		log.Printf("getTimeout failed: %v", err)
+	} else {
+		data, err := io.ReadAll(resp)
+		if err != nil {
+			log.Printf("io.ReadAll failed: %v", err)
+		} else {
+			log.Printf("Read %d bytes\n", len(data))
+		}
+	}
 }
 
 // get fetches a url and returns the response stream
@@ -64,6 +81,7 @@ func fetchlinks(url string) ([]string, error) {
 	if err != nil {
 		// Propagate the error
 		// - if the error is meaningful and provides context to the caller
+		// get failed: Get "https://golang.orgg": dial tcp: lookup golang.orgg: no such host
 		return nil, err
 	}
 
@@ -105,4 +123,21 @@ func visit(links []string, node *html.Node) []string {
 	}
 
 	return links
+}
+
+// getTimeout retries for the specified URL until the timeout
+func getTimeout(url string, timeout time.Duration) (io.Reader, error) {
+	endTime := time.Now().Add(timeout)
+
+	for retry :=0 ; time.Now().Before(endTime) ; retry++ {
+		resp, err := http.Get(url)
+		if err != nil {
+			time.Sleep(time.Second)
+			fmt.Printf("Retry %d\n", retry)
+			continue
+		}
+		return resp.Body, nil
+	}
+
+	return nil, fmt.Errorf("get %s: timed out after %f seconds", url, timeout.Seconds())
 }
