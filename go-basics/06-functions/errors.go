@@ -5,6 +5,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	"golang.org/x/net/html"
@@ -51,6 +52,7 @@ import (
 //     of the function.
 func DemoErrors() {
 	// 1. Propagate the error
+	fmt.Println("1. Propagate the error")
 	links, err := fetchlinks("https://golang.org")
 	if err != nil {
 		// Ignore the error and proceed without printing links
@@ -60,18 +62,27 @@ func DemoErrors() {
 	}
 
 	// 2. Retry
-	resp, err := getTimeout("https://golang.osrg", 5 * time.Second)
+	fmt.Println("2. Retry on error")
+	resp, err := getTimeout("https://golang.org", 5 * time.Second)
 	if err != nil {
-		// Ignore the error and proceed with limited functionality
-		log.Printf("getTimeout failed: %v", err)
+		// 3. Exit on error
+		fmt.Println("3. Exit on error")
+		log.Fatalf("Connection error: %v\n", err)
+		// or use log.Printf with os.Exit(1)
 	} else {
 		data, err := io.ReadAll(resp)
 		if err != nil {
+			// 4. Ignore the error with reduced functionality (whatever is in the else case)
+			fmt.Println("4. Ignore the error with reduced functionality")
 			log.Printf("io.ReadAll failed: %v", err)
 		} else {
 			log.Printf("Read %d bytes\n", len(data))
 		}
 	}
+
+	// 5. Ignore the error altogether and continue
+	_, err = fmt.Fprintf(os.Stdout, "5. Ignore the error altogether and proceed\n")
+	fmt.Println("Bye")
 }
 
 // get fetches a url and returns the response stream
