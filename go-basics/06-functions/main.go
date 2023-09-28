@@ -14,4 +14,8 @@ func main() {
 	// Errors
 	fmt.Println("--- DemoErrors -------")
 	DemoErrors()
+
+	// Function Types
+	fmt.Println("--- DemoFunctionTypes -------")
+	DemoFunctionTypes()
 }
