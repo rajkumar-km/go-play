@@ -18,4 +18,8 @@ func main() {
 	// Function Types
 	fmt.Println("--- DemoFunctionTypes -------")
 	DemoFunctionTypes()
+
+	// Anonymous functions
+	fmt.Println("--- DemoAnonymous -------")
+	DemoAnonymous()
 }
