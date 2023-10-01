@@ -46,6 +46,19 @@ func DemoAnonymous() {
 		return n * fact(n-1)
 	}
 	fmt.Printf("Recursive anonymous function to find factorial(%d): %d\n", 4, fact(4))
+
+	// Caveat: Capturing iteration variables
+	// Sometimes, even expert programmers failed to understand closures
+	cleanups := []func(){}
+	for i := 0; i < 3; i++ {
+		// i := i // Tip: enable this to define a local variable specific to this iteration
+		// and it can be safely captured in anonymous functions.
+		cleanups = append(cleanups, func() { fmt.Println("\tCleaning up index: ", i) })
+	}
+	fmt.Println("Caveat: capturing iteration variables results in accessing last value")
+	for _, f := range cleanups {
+		f()
+	}
 }
 
 // newFibonacci returns a function that can be used to retrieve sequence of finonacci numbers
