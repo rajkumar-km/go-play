@@ -22,4 +22,8 @@ func main() {
 	// Anonymous functions
 	fmt.Println("--- DemoAnonymous -------")
 	DemoAnonymous()
+
+	// Variadic functions
+	fmt.Println("--- DemoVariadic -------")
+	DemoVariadic()
 }
