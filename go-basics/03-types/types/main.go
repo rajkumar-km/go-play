@@ -17,6 +17,10 @@ func main() {
 	fmt.Println("--- DemoTypeDeclaration -------")
 	DemoTypeDeclaration()
 
+	// Type aliases
+	fmt.Println("--- DemoTypeAlias -------")
+	DemoTypeAlias()
+
 	// Type assertions
 	fmt.Println("--- DemoTypeAssertion -------")
 	DemoTypeAssertion()

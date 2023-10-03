@@ -66,9 +66,10 @@ func DemoTypeDeclaration() {
 	var c Celsius = FreezingC
 	var f Farenheit = 102
 
-	fmt.Println(c >= 0)           // allowed
+	fmt.Println(c >= 0)           // allowed because "0" is an untyped constant and compatible with Celsius
 	fmt.Println(c <= BoilingC)    // allowed
-	fmt.Println(f == 0)           // allowed
+	fmt.Println(f == 0)           // allowed because it is an untyped const
+	// fmt.Println(f == float64(0))  // compile error: float64 is different from Celsius even if it is a base type
 	// fmt.Println(c == f)        // compile error
 	// fmt.Println(f == BoilingC) // compile error
 	// fmt.Println(f - c)         // compile error
