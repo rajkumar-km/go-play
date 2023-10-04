@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 // DemoVariadic demonstrates variable length arguments to Go functions
 //   - A variable length argument can be specified with "..." before the type
@@ -17,7 +20,7 @@ func DemoVariadic() {
 
 	nums := []int{10, 20, 30}
 	sum = sumAll(nums...)
-	fmt.Printf("sumAll(nums...) = %d\n", sum)
+	logf("sumAll(nums...) = %d\n", sum)
 }
 
 // sumAll sums all the numbers passed to it and returns the sum
@@ -27,4 +30,12 @@ func sumAll(numbers ...int) int {
 		sum += n
 	}
 	return sum
+}
+
+// logf formats and logs the message with timestamp
+// format indicates the fmt format string
+// args accepts variable length of arguments. interface{} indicates any type
+func logf(format string, args ...interface{}) {
+	format = time.Now().Format("2006-01-02 15:04:05 ") + format
+	fmt.Printf(format, args...)
 }
