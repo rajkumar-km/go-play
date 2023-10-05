@@ -26,4 +26,8 @@ func main() {
 	// Variadic functions
 	fmt.Println("--- DemoVariadic -------")
 	DemoVariadic()
+
+	// Panic and Recover
+	fmt.Println("--- DemoPanicRecover -------")
+	DemoPanicRecover()
 }
