@@ -27,6 +27,10 @@ func main() {
 	fmt.Println("--- DemoVariadic -------")
 	DemoVariadic()
 
+	// Defer
+	fmt.Println("--- DemoDefer -------")
+	DemoDefer()
+
 	// Panic and Recover
 	fmt.Println("--- DemoPanicRecover -------")
 	DemoPanicRecover()
