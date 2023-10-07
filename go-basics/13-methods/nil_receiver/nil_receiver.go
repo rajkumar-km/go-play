@@ -40,4 +40,9 @@ func main() {
 	persons.Print()
 
 	// persons.Print2() // panic: runtime error: invalid memory address or nil pointer dereference
+
+	// Here, we use value type, but the internal value []Person is nil
+	// Since we have the instance of PersonList, we can invoke the method
+	var persons2 PersonList = nil
+	persons2.Print2()
 }
