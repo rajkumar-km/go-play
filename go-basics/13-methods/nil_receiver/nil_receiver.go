@@ -1,5 +1,7 @@
 /*
 nil_receiver demonstrates calling methods with nil pointer of corresponding type
+
+Make sure to add the documentation for the types that allows nil as valid value
 */
 package main
 
