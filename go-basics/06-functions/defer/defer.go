@@ -1,3 +1,19 @@
+/*
+defer demonstrates using defer function calls in Go
+
+	defer <functioncall()>
+	- The defer keyword evaluates the function call expression, but defer the call until the
+	completion of enclosing function.
+	- Defer call is useful for the following operations.
+	1. Closing files
+	2. Unlock mutex
+	3. Other cleanup tasks
+	- We need to have the defer calls immediately after opening a file or locking a mutex.
+	This gets automatically called at the end. Defer calls are executed even if panic() occurs.
+	- But, note that the resource is released only at the end of the function. Sometimes you might
+	want to free the resources before. Either you can perform close without defer or split it in
+	a separate function to use defer.
+*/
 package main
 
 import (
@@ -10,24 +26,11 @@ import (
 	"time"
 )
 
-// DemoDefer demonstrates using defer function calls in Go
-//    defer <functioncall()>
-// - The defer keyword evaluates the function call expression, but defer the call until the
-//   completion of enclosing function.
-// - Defer call is useful for the following operations.
-// 1. Closing files
-// 2. Unlock mutex
-// 3. Other cleanup tasks
-// - We need to have the defer calls immediately after opening a file or locking a mutex.
-//   This gets automatically called at the end. Defer calls are executed even if panic() occurs.
-// - But, note that the resource is released only at the end of the function. Sometimes you might
-//   want to free the resources before. Either you can perform close without defer or split it in
-//   a separate function to use defer.
-func DemoDefer() {
+func main() {
 	// Use defer to audit a functionality
 	// Not that audit() is not the deferred call here
 	// A func value returned by audit() is registred as defer call.
-	defer audit("DemoDefer")() // Note the extra parentheses to invoke returned func value
+	defer audit("main")() // Note the extra parentheses to invoke returned func value
 
 	// wget example for defer
 	url := "https://google.com"
@@ -44,7 +47,7 @@ func DemoDefer() {
 	} else {
 		fmt.Printf("Saved in %s\n", fName)
 	}
-	
+
 	// Lanuch a goroutine to cache the results
 	go cache(url, fName)
 }
@@ -77,7 +80,7 @@ func save(content []byte) (retOutFile string, retErr error) {
 	defer func() {
 		// This could have been written like "defer file.Close()"
 		// But, some file system operations (such as NFS) does not throw any error on os.Write
-		// But returns error while os.Close() is invoked. So, ignoring those errors can cause 
+		// But returns error while os.Close() is invoked. So, ignoring those errors can cause
 		// serious data loss
 		err := file.Close()
 		if err != nil {
@@ -96,12 +99,13 @@ func save(content []byte) (retOutFile string, retErr error) {
 		return
 	}
 
-	// Update the return value	
+	// Update the return value
 	return file.Name(), nil
 }
 
 // wgetCache is a map of URL and corresponding output file
 var wgetCache = make(map[string]string)
+
 // wgetMu is a mutex to synchronize access to wgetCache
 var wgetMu sync.Mutex
 

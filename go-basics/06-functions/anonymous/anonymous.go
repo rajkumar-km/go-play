@@ -1,3 +1,21 @@
+/*
+anonymous demonstrates anonymous functions in Go
+  - Named functions can be written in Go at the package level only
+  - In addition, Go supports function literals that can be written even inside another function.
+  - A function literal is written like a normal function declaration, but without function name.
+  - It is considered as Go expression and its value is called anonymous function.
+
+Why anonymous functions?
+  - Allows to define function at its point of use
+  - More importantly, those functions have access to their entire lexical environment
+  - So, a function value is not just action, but it can also have states.
+
+Closures:
+  - In programming languages, a closure means binding a function with its environment.
+  - For example a function referencing a variable outside its body.
+  - Since Go has closures, anonymous functions can still has references outside variables and
+    the scope of the variable is retained.
+*/
 package main
 
 import (
@@ -5,23 +23,7 @@ import (
 	"strings"
 )
 
-// DemoAnonymous demonstrates anonymous functions in Go
-//   - Named functions can be written in Go at the package level only
-//   - In addition, Go supports function literals that can be written even inside another function.
-//   - A function literal is written like a normal function declaration, but without function name.
-//   - It is considered as Go expression and its value is called anonymous function.
-//
-// Why anonymous functions?
-//   - Allows to define function at its point of use
-//   - More importantly, those functions have access to their entire lexical environment
-//   - So, a function value is not just action, but it can also have states.
-//
-// Closures:
-//   - In programming languages, a closure means binding a function with its environment.
-//   - For example a function referencing a variable outside its body.
-//   - Since Go has closures, anonymous functions can still has references outside variables and
-//     the scope of the variable is retained.
-func DemoAnonymous() {
+func main() {
 	// A simple anonymous function at the point of use
 	source := "hello"
 	transformed := strings.Map(func(r rune) rune { return r + 1 }, source)

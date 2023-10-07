@@ -1,3 +1,44 @@
+/*
+errors demonstrates error handling in Go
+  - Some functions always succeeds so they don't need to return errors.
+  - Some functions always returns single failure, so a bool can be used.
+  - An "error" type of argument is required if a function can return multiple errors.
+  - The other return values are undefined when an error is returned. However, some
+    functions may need to return partial results along with the error. Say a Read()
+    returning partial data with IO errors. Such case should be documented well.
+
+Go took the design decision to go with this error type instead of exceptions:
+  - Exceptions returns incomprehensible stacktrace, full of information about the
+    structure of the program, but lacking intelligable context about what went wrong.
+  - By contrast, Go programs use ordinary error handling with return values and
+    if statements. The demands more attention to be paid to error handling. This is
+    the primary reason.
+  - Go also has panic() and recover() which is a kind of exception handling, but
+    that is used to report truly unexpected exceptions that indicates a bug.
+
+The error type is an interface:
+  - A nil value is default and indicates no error.
+  - it has the method "Error() string" to get the error message.
+  - Package "errors" contains several helpers
+  - fmt.Errorf is handy to produce error type that uses Sprintf internally
+
+Error handling techniques:
+ 1. Propagate the error
+    a. Return as it is
+    b. Add context to the error and form the chain
+ 2. Retry for sometime
+ 3. Exit with error code (main workflow)
+ 4. Ignore the error continue with limited functionality
+ 5. Ignore the error and proceed
+
+In general, get into the habit of handling errors returned by functions.
+  - If you deliberately ignore some errors, document it.
+  - Handle the error first before performing success action
+  - If return statement is used for error, then write the success action in the outer block.
+    Do not use else block and minimize in indent.
+  - So a function tends to handle multiple errors on top and return. Finally the sustance
+    of the function.
+*/
 package main
 
 import (
@@ -11,46 +52,7 @@ import (
 	"golang.org/x/net/html"
 )
 
-// DemoErrors demonstrates error handling in Go
-//   - Some functions always succeeds so they don't need to return errors.
-//   - Some functions always returns single failure, so a bool can be used.
-//   - An "error" type of argument is required if a function can return multiple errors.
-//   - The other return values are undefined when an error is returned. However, some
-//     functions may need to return partial results along with the error. Say a Read()
-//     returning partial data with IO errors. Such case should be documented well.
-//
-// Go took the design decision to go with this error type instead of exceptions:
-//   - Exceptions returns incomprehensible stacktrace, full of information about the
-//     structure of the program, but lacking intelligable context about what went wrong.
-//   - By contrast, Go programs use ordinary error handling with return values and
-//     if statements. The demands more attention to be paid to error handling. This is
-//     the primary reason.
-//   - Go also has panic() and recover() which is a kind of exception handling, but
-//     that is used to report truly unexpected exceptions that indicates a bug.
-//
-// The error type is an interface:
-//   - A nil value is default and indicates no error.
-//   - it has the method "Error() string" to get the error message.
-//   - Package "errors" contains several helpers
-//   - fmt.Errorf is handy to produce error type that uses Sprintf internally
-//
-// Error handling techniques:
-//  1. Propagate the error
-//     a. Return as it is
-//     b. Add context to the error and form the chain
-//  2. Retry for sometime
-//  3. Exit with error code (main workflow)
-//  4. Ignore the error continue with limited functionality
-//  5. Ignore the error and proceed
-//
-// In general, get into the habit of handling errors returned by functions.
-//   - If you deliberately ignore some errors, document it.
-//   - Handle the error first before performing success action
-//   - If return statement is used for error, then write the success action in the outer block.
-//     Do not use else block and minimize in indent.
-//   - So a function tends to handle multiple errors on top and return. Finally the sustance
-//     of the function.
-func DemoErrors() {
+func main() {
 	// 1. Propagate the error
 	fmt.Println("1. Propagate the error")
 	links, err := fetchlinks("https://golang.org")
@@ -63,7 +65,7 @@ func DemoErrors() {
 
 	// 2. Retry
 	fmt.Println("2. Retry on error")
-	resp, err := getTimeout("https://golang.org", 5 * time.Second)
+	resp, err := getTimeout("https://golang.org", 5*time.Second)
 	if err != nil {
 		// 3. Exit on error
 		fmt.Println("3. Exit on error")
@@ -140,7 +142,7 @@ func visit(links []string, node *html.Node) []string {
 func getTimeout(url string, timeout time.Duration) (io.Reader, error) {
 	endTime := time.Now().Add(timeout)
 
-	for retry :=0 ; time.Now().Before(endTime) ; retry++ {
+	for retry := 0; time.Now().Before(endTime); retry++ {
 		resp, err := http.Get(url)
 		if err != nil {
 			time.Sleep(time.Second)

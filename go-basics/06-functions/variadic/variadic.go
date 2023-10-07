@@ -1,3 +1,14 @@
+/*
+variadic demonstrates variable length arguments to Go functions
+  - A variable length argument can be specified with "..." before the type
+  - Example: "numbers ...int"
+  - Inside the function, the type becomes a slice ([]numbers)
+
+In addition, we can also pass a slice with "..." to expand it as a
+argument list while calling the function. Example: sumAll(numbers...)
+  - The fmt.Printf and other formatting functions are the great examples for
+    variadic functions.
+*/
 package main
 
 import (
@@ -5,16 +16,7 @@ import (
 	"time"
 )
 
-// DemoVariadic demonstrates variable length arguments to Go functions
-//   - A variable length argument can be specified with "..." before the type
-//   - Example: "numbers ...int"
-//   - Inside the function, the type becomes a slice ([]numbers)
-//
-// In addition, we can also pass a slice with "..." to expand it as a
-// argument list while calling the function. Example: sumAll(numbers...)
-//   - The fmt.Printf and other formatting functions are the great examples for
-//     variadic functions.
-func DemoVariadic() {
+func main() {
 	sum := sumAll(1, 3, 4)
 	fmt.Printf("sumAll(1, 3, 4) = %d\n", sum)
 
