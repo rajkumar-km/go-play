@@ -4,11 +4,26 @@ composition demonstrates composition in Go programming
 Object composition:
   - Go does not support inheritance, but this can be achieved through composition
   - A struct can be embedded inside another struct by simply specifying the name
-  - All the properties and functions are delegated to the outer struct
+  - All the properties and methods are delegated to the outer struct
   - Go builds a table of pointers for each methods. Methods from the inner
     struct are promoted to outer struct if they don't exist
-  - This table is used to identify if a struct implements all the methods in
-    an inteface
+  - This table is also used to identify if a struct implements all the methods in
+    an interface
+
+Compiler resolves a selector by:
+  - First look at the direct method in the type
+  - Second, Methods promoted from one level embedded types. If multiple methods are
+    promoted from the same level, then it raises a compile error for ambiguity. it does
+    not report error as long as the method is not called by derived object.
+  - Next, looks for any methods promoted third level of embedding and so on.
+
+Derived object and parent object are considered two distinct types:
+  - You can not pass a derived object as an argument to the parent type like
+    other object oriented languages.
+  - Although the derived object has the embedded parent type, we must explicitly
+    refer it to perform operations.
+  - Alternatively, you can add the same methods in derived class that can accept
+    mixed types and proxy to parent's method by passing the embedded value.
 */
 package main
 
@@ -20,16 +35,22 @@ type CommonObject struct {
 	Name string
 }
 
-// Print display the information of CommonObject
-func (c *CommonObject) Print() {
-	fmt.Println("\tCommon: Id =", c.Id, ", Name =", c.Name)
-}
-
 // A Folder object that inherits CommonObject
 // - Specify the name of a struct inside another struct for composition
 type Folder struct {
 	Level        int
 	CommonObject // composition -- Folder inheriting all properties of CommonObject
+}
+
+// A File object inherting Folder object (multi level inhertiance)
+type File struct {
+	Folder
+	Size int
+}
+
+// Print display the information of CommonObject
+func (c *CommonObject) Print() {
+	fmt.Println("\tCommon: Id =", c.Id, ", Name =", c.Name)
 }
 
 // Print display the information of Folder object
@@ -40,13 +61,6 @@ func (f *Folder) Print() {
 	fmt.Println("\tFolder: Level =", f.Level)
 }
 
-// A Volume object inherting *Folder object (as reference type)
-// Composition with reference type requires initialization
-type Volume struct {
-	Size int
-	*Folder
-}
-
 // DemoStructEmbed demonstrates the struct composition in Go
 func DemoStructEmbed() {
 	fmt.Println("A struct can be embedded to another for inheritance")
@@ -54,16 +68,18 @@ func DemoStructEmbed() {
 	// Initializing a folder
 	// Literals must use the full form to initialize embedded structs
 	var folder Folder = Folder{Level: 1, CommonObject: CommonObject{Id: 1, Name: "folder"}}
+	// Embedding provides shortcut access "folder.Id" as well as full "folder.CommonObject.Id"
 	folder.Print()
 
-	// Initialing volume
-	var vol1 Volume = Volume{Size: 100, Folder: &folder}
+	// Initialing file
+	var file1 File = File{Size: 100, Folder: folder}
 	// Attributes can be accessed with shorthand names
-	fmt.Println("\tInherited attributes can be accessed directly:", vol1.Id, vol1.Name)
-	// Attributes can also be accessed like 'vol1.CommonObject.Name'
+	fmt.Println("\tInherited attributes can be accessed directly:", file1.Id, file1.Name)
+	// Attributes can also be accessed like 'file1.CommonObject.Name'
 	// Not the best practice, but useful in case if the original and embedded type has the same attribute.
 
 	// Literals must provide the full path
-	var vol2 Volume = Volume{Size: 200, Folder: &Folder{Level: 2, CommonObject: CommonObject{Id: 2, Name: "folder2"}}}
-	fmt.Println("\tUnfortunately no shorthand available for literals:", vol2.Id, vol2.Name)
+	var file2 File = File{Size: 200, Folder: Folder{Level: 2, CommonObject: CommonObject{Id: 2, Name: "folder2"}}}
+	fmt.Println("\tUnfortunately no shorthand available for literals:", file2.Id, file2.Name)
+	file2.Print() // invokes Folder.Print since File does not have Print()
 }
