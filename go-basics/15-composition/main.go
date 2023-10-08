@@ -7,6 +7,10 @@ func main() {
 	fmt.Println("--- DemoStructEmbed -------")
 	DemoStructEmbed()
 
+	// Embedding pointer to Struct
+	fmt.Println("--- DemoPtrToStructEmbed -------")
+	DemoPtrToStructEmbed()
+
 	// Embedding interfaces
 	fmt.Println("--- DemoInterfaceEmbed -------")
 	DemoInterfaceEmbed()
