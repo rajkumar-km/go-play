@@ -11,11 +11,26 @@ Exported vs Unexported Structs and Struct Fields:
 - Fields starting with upper case letters are exported, and not the lower case letters.
 - The structs/fields starting with lower case letter is accessible only within the package
 
+Encapsulation:
+  - Encapsulation is information hiding to hide data from clients accessing the object.
+  - In Go, the unit of encapsulation is "package" and not the "type".
+  - Unexported fields/methods of a struct can still be accessed within the same package
+  - Three benefits of encapsulation:
+    1. Since the variables can be modified only inside the package, developers can inspect
+    less amount of code for possible values. They don't have to look at client's code.
+    2. Since client's can not modify the variables/methods, developers has the freedom to
+    evolve and change internals without affecting the API compatability.
+    3. Prevents clients from modifying internals so that the package has the complete
+    control. For example, a counter variable can be restricted to only increment() rather
+    than client's setting it to some arbitrary value.
+  - Making a field/method public exposes to client. It has to go through deprecation way
+    if you want to revert back to internal. So, expose only what is required to the client.
+
 Structs are value types:
 - Performs a new copy during an assignment or passing to a function
 
 Struct Equality:
-- Two struct variables are equal if all their corresponding fields are equal -
+- Two struct variables are equal if all their corresponding fields are equal
 */
 package main
 
