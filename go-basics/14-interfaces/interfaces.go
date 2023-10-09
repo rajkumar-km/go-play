@@ -1,9 +1,14 @@
 /*
-Package main demonstrates the use of interfaces in Go programming
+interface demonstrates the use of interfaces in Go programming
 
-An interface contains list of method declarations and provides abstraction.
-Concrete types can be implement all the methods to be compatiple with the
+An interface express generalization about the behaviour of other types.
+It contains list of method declarations and provides abstraction.
+Concrete types can implement all the methods to be compatiple with the
 interface.
+  - In Go, we don't have explicitly mention that this type implements the any particular
+    interface. Simply satifying the interface methods are sufficient.
+  - This is a special behavior in Go and its lets us define generic interfaces even for
+    built in concrete types.
 
 How does an interface type work with concrete values?
   - Under the hood, an interface value can be thought of as a tuple consisting
@@ -63,13 +68,6 @@ func SumOfAreas(shapes ...Shape) float64 {
 	return totalArea
 }
 
-// MyDrawing represents a drawing and use an interface type as field
-type MyDrawing struct {
-	shapes  []Shape
-	bgColor string
-	fgColor string
-}
-
 // Play main the use of interfaces in Go
 // - Create an implementation and assign to interface variable
 // - Invoke the functions through interface
@@ -77,16 +75,21 @@ func main() {
 	// An interface type can be assigned with any value that implements all of its methods
 	var s Shape = &Rectangle{Length: 65, Width: 94}
 	fmt.Printf("Type = %T, Value = %v, Area = %f\n", s, s, s.Area())
-
 	var s2 Shape = &Rectangle{Length: 90, Width: 86}
-	fmt.Println("Sum of area =", SumOfAreas(s, s2))
+	fmt.Printf("Type = %T, Value = %v, Area = %f\n", s2, s2, s2.Area())
+
+	// We can use an interface type for variables
+	// We can also have a Circle that implements Shape interface and stored
+	// in the same variable.
+	var shapes []Shape = []Shape{s, s2}
+	fmt.Println("Sum of area =", SumOfAreas(shapes...))
 
 	// This isn't the usual way. Just for demonstration
 	// Assigning a value type to the interface makes a copy, so the original object remains
 	var orgObj Rectangle
 	orgObj.Length = 10.0
-	var s3 Shape = orgObj
-	copyObj := s3.(Rectangle)
-	copyObj.Length = 20.0 // updating interface obj does not reflect in original object
+	var s3 Shape = orgObj     // makes copy
+	copyObj := s3.(Rectangle) // retrieve the copy from interface variable
+	copyObj.Length = 20.0     // updating copied obj does not reflect in original object
 	fmt.Printf("Original value: %f, Interface copy: %f\n", orgObj.Length, copyObj.Length)
 }
