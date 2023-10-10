@@ -16,6 +16,22 @@ How does an interface type work with concrete values?
   - Example: [{65, 94}, main.Rectangle]
   - If an interface method is called, the corresponding method on the concrete type is called
 
+Interface Satisfaction:
+  - All the methods of the interface must be implemented in concrete type.
+  - It causes compile error if any of the interface methods are not implemented
+  - The rule works even when assigning one interface value to another interface variables.
+  - For example,
+    var r io.Reader = new(bytes.Buffer)
+    var rwc io.ReadWriteCloser = os.Stdout
+    r = rwc
+    rwc = r // compile error: bytes.Buffer lacks Close() method
+  - Reader interface can be assigned with a value from ReadWriteCloser interface, because it
+    satisfies the Read() method.
+  - The other way is not possible, because bytes.Buffer type does not have Close() method.
+  - The concrete type can have more methods than the ones specified by the interface. Once
+    the concrete type is assigned to interface variable, it wraps and allows to call only
+    the methods defined by the interface.
+
 Assigning interface with pointer and value types:
   - Another point to remember is an interface can be assigned with both value and pointer type.
   - A copy is made and stored in interface when value type is stored. So any changes to the
@@ -27,6 +43,9 @@ Interface and methods with pointer receiver:
     pointer receiver.
   - Because, the value stored in the interface is not addressable, so it can not dereference
     it to pointer and invoke the method.
+
+Naming the interface:
+  - Go recommends to name them with -er suffix, like Reader, Writer, Closer, ReadWriter, and etc.,
 */
 package main
 
@@ -43,10 +62,15 @@ type Shape interface {
 // A Rectangle is an implementation of Shape interface
 // - Just need to implement all the methods of the interface. Thats all
 // - No explicit specification is required in Go like Java/C++
+// - We can also have a Circle that implements Shape interface and stored in the same variable.
 type Rectangle struct {
 	Length float32
 	Width  float32
 }
+
+// In Go, we don't have to associate interface and concrete type
+// But, sometime it is useful to document the association and assertain the same at compile time
+var _ Shape = (*Rectangle)(nil) // or "var _ Shape = Rectangle{}" but that creates an object
 
 // Area returns the area of Rectangle
 func (r Rectangle) Area() float32 {
@@ -75,12 +99,10 @@ func main() {
 	// An interface type can be assigned with any value that implements all of its methods
 	var s Shape = &Rectangle{Length: 65, Width: 94}
 	fmt.Printf("Type = %T, Value = %v, Area = %f\n", s, s, s.Area())
+
 	var s2 Shape = &Rectangle{Length: 90, Width: 86}
 	fmt.Printf("Type = %T, Value = %v, Area = %f\n", s2, s2, s2.Area())
 
-	// We can use an interface type for variables
-	// We can also have a Circle that implements Shape interface and stored
-	// in the same variable.
 	var shapes []Shape = []Shape{s, s2}
 	fmt.Println("Sum of area =", SumOfAreas(shapes...))
 
@@ -88,7 +110,7 @@ func main() {
 	// Assigning a value type to the interface makes a copy, so the original object remains
 	var orgObj Rectangle
 	orgObj.Length = 10.0
-	var s3 Shape = orgObj     // makes copy
+	var s3 Shape = orgObj     // makes copy. values stored in the interface are not addressable
 	copyObj := s3.(Rectangle) // retrieve the copy from interface variable
 	copyObj.Length = 20.0     // updating copied obj does not reflect in original object
 	fmt.Printf("Original value: %f, Interface copy: %f\n", orgObj.Length, copyObj.Length)
