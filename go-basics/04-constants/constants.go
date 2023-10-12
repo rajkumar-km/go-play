@@ -10,7 +10,7 @@ import (
 //   - Values can not be changed once initialized
 //   - The underlying types are strings, numeric, and boolean types
 //   - Constants are evaluated at compile time. So, the results of all arithmetic, comparision,
-//     and logical operations applied to constants are are themselves constants and it will be
+//     and logical operations applied to constants are themselves constants and it will be
 //     evaluated at compile time. Thus saves the run time.
 func DemoConstants() {
 	// All the literals in Go are constants without a name
@@ -50,8 +50,9 @@ func DemoConstants() {
 	var myBool = false     // bool
 	var myChar = 'X'       // rune
 	var myStr = "Hello"    // string
+	var myChar2 = myStr[0] // byte
 	var myComplex = 3 + 5i // complex128
-	fmt.Println(myInt, myFloat, myBool, myChar, myStr, myComplex)
+	fmt.Println(myInt, myFloat, myBool, myChar, myChar2, myStr, myComplex)
 
 	// Constant expressions.
 	// Multple constants can also be combined like variables
@@ -75,8 +76,8 @@ func DemoConstants() {
 	// Overflow and underflow are reported as compile error during the conversion
 	// Rounding is allowed for float/complex
 	const c0 = float32(0xdeadbeef) // rounded up from 3735928559 to 3735928576
-	// const c1 := int32(0xdeadbeef) // overflow
-	// const c2 := float64(1e309)    // overflow
-	// const c3 := uint(-1)          // underflow
+	// const c1 = int32(0xdeadbeef) // overflow
+	// const c2 = float64(1e309)    // overflow
+	// const c3 = uint(-1)          // underflow
 
 }
