@@ -10,11 +10,8 @@ interface.
   - This is a special behavior in Go and its lets us define generic interfaces even for
     built in concrete types.
 
-How does an interface type work with concrete values?
-  - Under the hood, an interface value can be thought of as a tuple consisting
-    of a value and a concrete type: [value, type]
-  - Example: [{65, 94}, main.Rectangle]
-  - If an interface method is called, the corresponding method on the concrete type is called
+Naming the interface:
+  - Go recommends to name them with -er suffix, like Reader, Writer, Closer, ReadWriter, and etc.,
 
 Interface Satisfaction:
   - All the methods of the interface must be implemented in concrete type.
@@ -31,21 +28,6 @@ Interface Satisfaction:
   - The concrete type can have more methods than the ones specified by the interface. Once
     the concrete type is assigned to interface variable, it wraps and allows to call only
     the methods defined by the interface.
-
-Assigning interface with pointer and value types:
-  - Another point to remember is an interface can be assigned with both value and pointer type.
-  - A copy is made and stored in interface when value type is stored. So any changes to the
-    object is not reflected on the other side.
-  - Storing a pointer type always reflects the changes other side.
-
-Interface and methods with pointer receiver:
-  - If the interface is stored with a value type object, then it can not invoke methods with
-    pointer receiver.
-  - Because, the value stored in the interface is not addressable, so it can not dereference
-    it to pointer and invoke the method.
-
-Naming the interface:
-  - Go recommends to name them with -er suffix, like Reader, Writer, Closer, ReadWriter, and etc.,
 */
 package main
 
