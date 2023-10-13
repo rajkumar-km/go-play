@@ -12,6 +12,17 @@ Why Method instead of Function?
 - Short and easy to understand
 - Same function name can be reused for different types
 
+Methods and named types:
+  - Go does not allow to add methods on built-in types, arrays, slices, maps, channels, and
+    functions.
+  - But, we can indirectly add methods by defining a named type referencing built-in types.
+  - Example:
+  - type MyList []int
+  - func (l *MyList) Sum() {}
+  - Another example from net/http that has named type for a function and add methods to a function
+  - type HandlerFunc func(w ResponseWriter, r *Request)
+  - func (f *HandlerFunc) ServeHTTP(w ResponseWriter, r *Request) { f(w,r) }
+
 Method definition restrictions:
   - Method can be defined on the same package - the receiver type is defined
   - It does not allow to define methods for built-in types or types defined in other packages.
