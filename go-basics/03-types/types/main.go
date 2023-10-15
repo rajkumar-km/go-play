@@ -20,8 +20,4 @@ func main() {
 	// Type aliases
 	fmt.Println("--- DemoTypeAlias -------")
 	DemoTypeAlias()
-
-	// Type assertions
-	fmt.Println("--- DemoTypeAssertion -------")
-	DemoTypeAssertion()
 }
