@@ -5,10 +5,16 @@ typeassert demonstrates Go type assertions
 */
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"io/fs"
+	"os"
+	"strings"
+)
 
 func main() {
 	demoTypeAssert()
+	demoErrorDifferenciation()
 	demoTypeSwitch()
 	demoTypeAssertForInterface()
 }
@@ -42,6 +48,32 @@ func demoTypeAssert() {
 		fmt.Printf("data.(float32) = %f\n", myFloat)
 	} else {
 		fmt.Printf("data is not float32\n")
+	}
+}
+
+// demoErrorDifferenciation shows how to handle path errors through error
+// interface
+func demoErrorDifferenciation() {
+	_, err := os.Open("/invalid/path")
+	fmt.Println(err.Error()) // open /invalid/path: no such file or directory
+	if os.IsNotExist(err) {
+		fmt.Println("NotExist")
+	}
+
+	// How can we replicate os.IsNotExist()?
+	// Does os.IsNotExist() checks if the returned error is: no such file or directory? No
+	if strings.Contains(err.Error(), "no such file or directory") {
+		// This seems ugly and it is not platform independent
+	}
+
+	// Actually os.Open() returns *fs.PathError wrapped in error interface
+	// &fs.PathError{Op:"open", Path:"/invalid/path", Err:0x2}
+	// So, this contains the operation, file path, and the error code.
+	if pathErr, ok := err.(*fs.PathError); ok {
+		fmt.Printf("%#v\n", pathErr)
+		if pathErr == os.ErrNotExist {
+			fmt.Println("os.ErrNotExist")
+		}
 	}
 }
 
