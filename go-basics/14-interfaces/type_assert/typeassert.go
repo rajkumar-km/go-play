@@ -7,6 +7,7 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"io/fs"
 	"os"
 	"strings"
@@ -109,6 +110,18 @@ func demoTypeAssertForInterface() {
 		fmt.Println(t.String())
 	} else {
 		fmt.Printf("%T is not compatible with fmt.Stringer\n", temp)
+	}
+
+	// Another example: io.Writer interface ensures that it has Write() method which accepts
+	// []byte slice. 
+	// - But, if we need to write a string then a conversion is required like
+	//   []byte(str) which is inefficient since it creates a copy.
+	// - Instead, the WriteString() method available in certain concrete types which is efficient
+	//   to write strings.
+	// - So, we could improve write like:
+	tempws, ok := temp.(interface{WriteString(io.Writer, string) (int, error)})
+	if ok {
+		tempws.WriteString(os.Stdout, "mystr")
 	}
 }
 
