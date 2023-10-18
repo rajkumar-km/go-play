@@ -1,7 +1,7 @@
 /*
 typeassert demonstrates Go type assertions
   - Assertain the actual type stored in an interface
-  - Type switch statement
+  - Assertion also performs convertion to the target type
 */
 package main
 
@@ -16,7 +16,6 @@ import (
 func main() {
 	demoTypeAssert()
 	demoErrorDifferenciation()
-	demoTypeSwitch()
 	demoTypeAssertForInterface()
 }
 
@@ -75,23 +74,6 @@ func demoErrorDifferenciation() {
 		if pathErr == os.ErrNotExist {
 			fmt.Println("os.ErrNotExist")
 		}
-	}
-}
-
-// demoTypeSwitch shows the Go type switch to handle multiple types
-// The "switch data.(type)" can be used to check for multiple cases like "case int:"
-func demoTypeSwitch() {
-	var data interface{} = 12.34
-
-	switch data.(type) {
-	case int:
-		fmt.Println("data is int")
-	case float32:
-		fmt.Println("data is float32")
-	case float64:
-		fmt.Println("data is float64")
-	default:
-		fmt.Println("unsupported type")
 	}
 }
 
