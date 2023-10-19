@@ -47,6 +47,7 @@ func SQL(query string, args ...any) string {
 			} else {
 				argStr = "false"
 			}
+			// fallthrough // compile error: cannot fallthrough in type switch
 		case int, uint:
 			argStr = fmt.Sprintf("%d", x) // x is "any" here because it combines int and uint
 		case string:

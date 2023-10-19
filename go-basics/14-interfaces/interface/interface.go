@@ -28,6 +28,17 @@ Interface Satisfaction:
   - The concrete type can have more methods than the ones specified by the interface. Once
     the concrete type is assigned to interface variable, it wraps and allows to call only
     the methods defined by the interface.
+
+When to use interface?
+  - Sometimes developers define interfaces first and later define concrete types. This can lead
+    to many interfaces associated with single concrete resource.
+  - Interface also has runtime cost, so use it when there are multiple concrete types associated
+    with it. But there is an exception: If the interface and concrete types of presents in
+    separate packages, then it is allowed to decouple the packages.
+  - Smaller interfaces such as io.Writer satisfies many upcoming types. So, ask only for what you
+    need when defining an interface.
+  - Since Go has support for OOPs, it does not mean we have use exclusively. Use wherever it is
+    necessary.
 */
 package main
 
