@@ -1,3 +1,6 @@
+/*
+channels demonstrates the use of Go channels
+*/
 package main
 
 import (
@@ -5,8 +8,7 @@ import (
 	"time"
 )
 
-// DemoChannels demonstrates the use of Go channels
-func DemoChannels() {
+func main() {
 	// ----------------------------------
 	// 1. Create a channel of type string
 	// Note: Channels are goroutine safe

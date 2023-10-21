@@ -12,11 +12,9 @@ import "fmt"
 // - Select
 func main() {
 	fmt.Println("--- DemoGoroutines -------")
-  DemoGoroutines()
-  fmt.Println("--- DemoWaitGroup -------")
+	DemoGoroutines()
+	fmt.Println("--- DemoWaitGroup -------")
 	DemoWaitGroup()
-  fmt.Println("--- DemoDemoChannels -------")
-	DemoChannels()
-  fmt.Println("--- DemoSelect -------")
+	fmt.Println("--- DemoSelect -------")
 	DemoSelect()
 }
