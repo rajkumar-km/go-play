@@ -8,22 +8,31 @@ import (
 	"time"
 )
 
+// echo prints a message three times with 10ms interval
+// Notifies the caller by sending "done" to channel ch.
+func echo(ch chan string, msg string) {
+	for i := 1; i <= 3; i++ {
+		fmt.Println(i, msg)
+		time.Sleep(time.Millisecond * 10)
+	}
+	ch <- "done" // Notify caller
+}
+
 func main() {
 	// ----------------------------------
 	// 1. Create a channel of type string
-	// Note: Channels are goroutine safe
+	// Note: Channels are goroutine safe, so no Mutex required
 	// ----------------------------------
+	// The channel is unbufferred by default. It is also called synchronous channel.
+	// Meaning the send is not complete until the receiver reads the message
+	// The receive also blocked until someone sends the message to channel
 	messages := make(chan string)
 
-	// From a seperate gorouting, Post a message "ping" to the channel
-	go func(msg string) {
-		// The channel is unbufferred by default.
-		// Meaning the send is not complete until the receiver reads the message
-		// The following call blocks until another goroutine reads the msg
-		messages <- msg
-	}("ping")
-
+	// From a seperate goroutine, Post a message "ping" to the channel
+	go echo(messages, "ping")
+		
 	// Receive the message from the channel posted by another goroutine
+	// The following call blocks until another goroutine writes the msg
 	msg := <-messages
 	fmt.Println(msg)
 
@@ -47,7 +56,7 @@ func main() {
 
 		// Indicate the completion
 		done <- true
-	}()
+	}() // An anonymous function can also be a goroutine. Note the () at the end
 
 	// Receive the message
 	time.Sleep(5 * time.Second)
@@ -62,6 +71,7 @@ func main() {
 
 	// ---------------------------
 	// 3. Channel directions
+	// See sendMsg() and receiveMsg() and note the type of arguments used to pass the channel
 	// ---------------------------
 	sendMsg(msgQueue)
 	receiveMsg(msgQueue)

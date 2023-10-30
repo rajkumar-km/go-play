@@ -11,8 +11,6 @@ import "fmt"
 // - Channels
 // - Select
 func main() {
-	fmt.Println("--- DemoGoroutines -------")
-	DemoGoroutines()
 	fmt.Println("--- DemoWaitGroup -------")
 	DemoWaitGroup()
 	fmt.Println("--- DemoSelect -------")
