@@ -1,6 +1,10 @@
 /*
 clock serves the time every second through a TCP channel
 It can produce the time based on the timezone set by environment variable CLOCK_TZ
+
+Example: Works on Linux environment to set env CLOCK_TZ
+
+	$ CLOCK_TZ=Asia/Kolkata ./clock --port 8002
 */
 package main
 
