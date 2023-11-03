@@ -1,16 +1,12 @@
-/*
-Channel directions can be specified in function arguments to restrict only for send or
-receive operations
-
-Example:
-
-	func sendMsg(mQ chan<- string)
-	func receiveMsg(mQ <-chan string)
-*/
 package main
 
 import "fmt"
 
+// DemoChannelDirections demonstrates directions of channels in function arguments
+// This can be specified in function arguments to restrict only for send or receive operations
+// Example:
+//	func sendMsg(mQ chan<- string) // send only
+//	func receiveMsg(mQ <-chan string) // receive only
 func DemoChannelDirections() {
 	msgQueue := make(chan string, 2)
 

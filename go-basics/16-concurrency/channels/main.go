@@ -53,4 +53,8 @@ func main() {
 	// Channel directions
 	fmt.Println("\n--- DemoChannelDirections -------")
 	DemoChannelDirections()
+
+	// Channel as pipelines
+	fmt.Println("--- DemoChannelPipes -------")
+	DemoChannelPipes()
 }

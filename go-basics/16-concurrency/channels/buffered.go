@@ -1,7 +1,3 @@
-/*
-Buffered channel is asynchronous to send multiple messages up to the specified size.
-After that it is blocked until someone reads the message.
-*/
 package main
 
 import (
@@ -9,6 +5,9 @@ import (
 	"time"
 )
 
+// DemoBuffered demonstrates the buffered channels in Go
+// Buffered channel is asynchronous to send multiple messages up to the specified size.
+// After that it is blocked until someone reads the message.
 func DemoBuffered() {
 
 	// ----------------------------------------------------------

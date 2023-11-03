@@ -1,7 +1,3 @@
-/*
-Unbuffered Channel is synchronous and blocks both send and recv operations when the other
-side is ready
-*/
 package main
 
 import (
@@ -9,6 +5,9 @@ import (
 	"time"
 )
 
+// DemoUnbuffered demonstrates unbuffered channels in Go
+// It is also called synchronous channel since it blocks both send and recv operations
+// when the other side is ready
 func DemoUnbuffered() {
 	// ----------------------------------
 	// 1. Create a channel of type string
