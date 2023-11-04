@@ -1,3 +1,6 @@
+/*
+waitgroup demonstrates the sync.waitgroup in Go
+*/
 package main
 
 import (
@@ -5,8 +8,7 @@ import (
 	"sync"
 )
 
-// DemoWaitgroup demonstrates the waitgroup
-func DemoWaitGroup() {
+func main() {
 	// A wait group can be used to wait for goroutine completion
 	var wg sync.WaitGroup
 

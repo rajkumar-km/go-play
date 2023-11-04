@@ -1,3 +1,6 @@
+/*
+select demonstrates the use of select in Go
+*/
 package main
 
 import (
@@ -5,8 +8,7 @@ import (
 	"time"
 )
 
-// DemoSelect demonstrates the use of select in Go
-func DemoSelect() {
+func main() {
 	c1 := make(chan string)
 	c2 := make(chan string)
 
