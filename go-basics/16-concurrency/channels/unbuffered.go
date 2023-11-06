@@ -6,8 +6,15 @@ import (
 )
 
 // DemoUnbuffered demonstrates unbuffered channels in Go
-// It is also called synchronous channel since it blocks both send and recv operations
-// when the other side is ready
+// - It is also called synchronous channel since it blocks both send and recv operations
+//   when the other side is ready.
+// - Note that goroutines can be blocked either sending/receiving on the unbuffered channel
+//   which is called goroutine leak and it is a bug.
+// - One must be careful when sending/receiving data on unbuffered channel. What if the other
+//   end died without responding?
+// - Prefer unbuffered channels if you want the synchronization between two routines
+// - We can prefer buffered channels if the jobs are independent and multiple goroutines can
+//   work on the same channel. This can speed up things.
 func DemoUnbuffered() {
 	// ----------------------------------
 	// 1. Create a channel of type string
@@ -36,6 +43,7 @@ func DemoUnbuffered() {
 	}
 	fmt.Println("Second msg", msg)
 
+	// Instead of using "ok" param, we can make it simpler with range loop
 	// Use range and receive the messages as long as the channel is open
 	for msg := range ch {
 		fmt.Println("All other msgs", msg)
@@ -43,7 +51,7 @@ func DemoUnbuffered() {
 }
 
 // echo prints a message three times with 10ms interval
-// Notifies the caller by sending "done" to channel ch.
+// Notifies the caller by closing the channel ch.
 func echo(ch chan string, msg string) {
 	for i := 1; i <= 5; i++ {
 		ch<- fmt.Sprintf("%d. %s", i, msg)
