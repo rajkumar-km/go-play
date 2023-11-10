@@ -56,64 +56,64 @@ func main() {
 // MakeThumbnails receives the filenames in a channel and generates thumbnail images
 // Cancellation is supported by closing a "done" channel which broadcast to all routines
 func MakeThumbnails(filenames <-chan string) error {
-    token := make(chan struct{}, 2) // To keep only 2 goroutines at a time
-    errors := make(chan error)
-    var wg sync.WaitGroup
+	token := make(chan struct{}, 2) // To keep only 2 goroutines at a time
+	errors := make(chan error)
+	var wg sync.WaitGroup
 
-    for f := range filenames {
-        wg.Add(1) // increment the counter
-        go func(file string) {
-            defer wg.Done() // decrement the counter once the routine is complete
+	for f := range filenames {
+		wg.Add(1) // increment the counter
+		go func(file string) {
+			defer wg.Done() // decrement the counter once the routine is complete
 
-            select {
-            case token <- struct{}{}: // acquire token
-                // Tokens are issues to only limited routines (using a buffered channel)
-                // Other goroutines waits here until some routine release the token
+			select {
+			case token <- struct{}{}: // acquire token
+				// Tokens are issues to only limited routines (using a buffered channel)
+				// Other goroutines waits here until some routine release the token
 			case <-cancel:
-                // Received cancel signal, so do not spawn new jobs
+				// Received cancel signal, so do not spawn new jobs
 				fmt.Println("aborted while waiting for token")
-                return
-            }            
-            defer func() { <-token }() // release token
-            
-            // Depends on the operations, we may need to add this check in multiple places
-            // to handle the cancellation signals
-            if cancelled() {
-				fmt.Println("aborted before thumbnail creation")
-                return
-            }
+				return
+			}
+			defer func() { <-token }() // release token
 
-            // Integrate the thumbnal image functionality here
+			// Depends on the operations, we may need to add this check in multiple places
+			// to handle the cancellation signals
+			if cancelled() {
+				fmt.Println("aborted before thumbnail creation")
+				return
+			}
+
+			// Integrate the thumbnal image functionality here
 			// _, err := thumbnail.ImageFile(file)
-			time.Sleep(3*time.Second)
+			time.Sleep(3 * time.Second)
 			var err error = nil
 
-            errors <- err
-        }(f)
-    }
+			errors <- err
+		}(f)
+	}
 
-    // closer routine wait for all other routines
-    go func() {
-        wg.Wait() // wait for all routines. Counter becomes zero
-        close(errors)
-    }()
+	// closer routine wait for all other routines
+	go func() {
+		wg.Wait() // wait for all routines. Counter becomes zero
+		close(errors)
+	}()
 
-    // Main routine return any errors as soon as it encounters
-    for err := range errors {
-        if err != nil {
-            return err
-        }
-    }
+	// Main routine return any errors as soon as it encounters
+	for err := range errors {
+		if err != nil {
+			return err
+		}
+	}
 
-    return nil
+	return nil
 }
 
 // cancelled returns true if the operations are cancelled, false otherwise.
 func cancelled() bool {
-    select {
-        case <-cancel:
-            return true
-        default:
-            return false
-    }
+	select {
+	case <-cancel:
+		return true
+	default:
+		return false
+	}
 }
