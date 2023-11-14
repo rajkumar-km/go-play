@@ -69,3 +69,34 @@ don't share the common variables.
 
 Data race happens when multiple goroutines access the same variable and at least one of the
 accesses is write.
+
+### Mutual Exclusion (sync.Mutex)
+- See mutex/mutex.go
+
+### Read/Write Mutexes (sync.RWMutex)
+- See rwmutex/rwmutex.go
+
+### Lazy Initialization (sync.Once)
+- See once/once.go
+
+### Race Detector
+It is possible for the programmers to leak concurrency issues even after the review. Go provides
+a built-in race detector to detect the concurrency issues at run time.
+
+- Simple add "-race" flag in go build which would generate a detailed executable
+- Race detector analyzes the go events/statements while running the program and detect the
+  possible races. It checks whether a shared variable is accessed by multiple goroutines in
+  a short span of time without using the synchronization methods.
+- Since all the go events are recorded, errors are reported with the information about shared
+  variable, and the stack trace of two goroutines accessing the same variable.
+- Note that it can detect only races that happens during the run. So, ensure that all the paths
+  are covered in the tests and -race flag is used.
+- Race detector involves extra bookkeeping and affects performance. But, most of the time it is
+  good to run production systems with race detector which is tolerable. This can save lots of
+  debugging time.
+
+### Shared variables with locks vs Communicating sequencial processes (channels)
+
+"It’s not always obvious which approach is preferable in a given situation, but it’s worth
+knowing how they correspond. Sometimes switching from one approach to the other can
+make your code simpler."
