@@ -100,3 +100,30 @@ a built-in race detector to detect the concurrency issues at run time.
 "It’s not always obvious which approach is preferable in a given situation, but it’s worth
 knowing how they correspond. Sometimes switching from one approach to the other can
 make your code simpler."
+
+### Goroutines and Threads
+- Threads are the underlying operating system units to execute a piece of code
+- Goroutine is an abstraction on top of OS threads to achieve certain benefits.
+- The benifits of quantitative: Basically M goroutines are mapped to N OS threads (called m:n)
+- Reducing large number of OS threads becomes a qualitative benefits as well.
+#### Growable stacks
+- Threads are fixed in size typically 2 MB. All the stack variables are stored in this memory
+  This can be too much or too less depends on the requirements.
+- Thread size can be configured using ulimit or during the link stage or at run time before
+  creating a thread. However the size is fixed once set.
+- Goroutines grows and shrinks based on needs starting from 2 KB. It may grow even to 1 GB
+- In terms of size, we can create 1000s of smalller goroutines in place of a single OS thread
+#### Goroutine scheduling
+- OS threads are scheduled by the OS kernel:
+    - Every few milliseconds, a hardware timer interupts the processor
+    - Processor performs the context switch to next thread.
+    - Context switching is costly as it has to suspend the current thread and save all its
+      registers in memory, and then reload the next available thread.
+- Go runtime has its own Go scheduler that works by m:n scheduling
+    - Go scheduler multiplexes/schedules m goroutines to n OS threads.
+    - Unlike OS thread scheduler, Go scheduler is not invoked by timers.
+    - This is specific to the single program and invoked during certain calls such as
+      time.Sleep(), channel read/write, or mutex locks.
+    - Go scheduler works like a OS thread scheduler during this time and performs the
+      context switch between goroutines.
+    - Context switch of goroutine is much cheaper than the full context switch of OS thread.
