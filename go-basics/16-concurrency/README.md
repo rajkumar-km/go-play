@@ -76,6 +76,21 @@ accesses is write.
 ### Read/Write Mutexes (sync.RWMutex)
 - See rwmutex/rwmutex.go
 
+### Memory Synchronization
+
+Do you wonder why we need locks for read operations?
+1. First thing is that a read may give wrong result while the write is ongoing
+2. Secondly, the more subtle is flushing out memory for synchronization between goroutines.
+
+In the moderen processors, dozens for CPU has its own cache and defer the writes to main memory.
+So, a value modified in one goroutine may not be reflected immediately in another goroutine.
+Synchronization calls like channel operations and mutex flush out the cache to memory. This
+ensures that the updated values are reflected in other goroutines running on different
+processors.
+
+Compiler on the other side can perform optimization and it can even rearrange statements as
+long the output is same. So, the intutions about the concurrency are not be trusted.
+
 ### Lazy Initialization (sync.Once)
 - See once/once.go
 
@@ -127,3 +142,18 @@ make your code simpler."
     - Go scheduler works like a OS thread scheduler during this time and performs the
       context switch between goroutines.
     - Context switch of goroutine is much cheaper than the full context switch of OS thread.
+#### GOMAXPROCS
+- Go scheduler uses the parameter GOMAXPROCS to limit the active OS threads to be used.
+  Note that this is the limit of active OS threads. It does not count any OS threads blocked by
+  user input or system calls.
+- User can control this by setting environment variable GOMAXPROCS or using the function
+  runtime.GOMAXPROCS
+#### Goroutines have no identity
+- OS threads generally has a unique identifier.
+- Thread local storage can be built using the unique thread id and each thread can use their
+  dedicated variable space.
+- Goroutine does not any unique identifier. This is intentional to avoid routines building
+  individual states like thread-local storage.
+- Instead of using state variables, Go encourage to use arguments that is more explicit and easy
+  for understanding and debugging.
+- All goroutines works straightforward. We don't have to worry about individual goroutine states.

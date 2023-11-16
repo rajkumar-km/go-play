@@ -14,19 +14,6 @@ in doubt use exclusive locks
 
 RWMutex involves more bookkeeping and slower than normal Mutex. So it is only profitable to
 use with more readers than writers.
-
-Do you wonder why we need locks for read operations?
-1. First thing is that a read may give wrong result while the write is ongoing
-2. Secondly, the more subtle is flushing out memory for synchronization between goroutines.
-
-In the moderen processors, dozens for CPU has its own cache and defer the writes to main memory.
-So, a value modified in one goroutine may not be reflected immediately in another goroutine.
-Synchronization calls like channel operations and mutex flush out the cache to memory. This
-ensures that the updated values are reflected in other goroutines running on different
-processors.
-
-Compiler on the other side can perform optimization and it can even rearrange statements as
-long the output is same. So, the intutions about the concurrency are not be trusted.
 */
 package main
 
