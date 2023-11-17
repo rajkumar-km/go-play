@@ -1,28 +1,5 @@
 /*
 packages demontrate the use of packages in Go
-Go packages are the separate units of code like libraries or modules:
-  - Serves modularity, encapsulation, separate compilation, reusability, and maintainability.
-  - Provides separate namespace within every package. So the same name can be reused.
-    in other packages to reduces naming conflicts.
-  - Speed up the compilation since it is required for only modified packages
-  - This also provides the way to hide/expose information outside the package.
-  - Multiple files can be created inside the package folder. They can access information
-    each other as like they are defined in the same file.
-  - Anything (variable, type, func) that starts with the Capital letter is accessible after the import
-  - Anything that starts with the small letter are private to the package
-  - DRY (Don't Repeat Yourself) principle is one of guidance of good quality software
-    Packages are the next steps (after functions) for code
-
-Importing packages:
-  - Go convention is have the directory name same as package name
-  - For example "rand" is the nested package name on import of the "math/rand"
-  - External packages can be imported with path like
-    "github.com/rajkumar-km/go-play/go-basics/07-packages/tempconv"
-  - Go does not define any standards to this path, it upto the tools to intrepret it.
-    The "go" tool interpret the path as folders.
-  - A short name is assigned to access the package. By default it is the package name
-    generally available at the last part of the import. We can also specificy the alternative
-    name to avoid naming conflicts when importing multiple packages with the same name.
 
 Package initialization:
   - Packages are initialized as per the import order. However, if they have
