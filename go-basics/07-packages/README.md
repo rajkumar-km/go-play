@@ -96,3 +96,22 @@ Speed up the compilation:
     Avoid including the package name in the member itelf.
   - Packages like "math/rand" exposes one principle data type "Rand" and provides a New() function
     to create instances of Rand. Several methods can be added for Rand type.
+
+## The Go Tool
+  - The "go" is a combined set of tools for downloading, querying, formatting, building, testing,
+    and installing go packages. So, go tool is a
+  - Package manager like apt, rpm
+  - Build system that compute dependencies, invoke compiler, assembler, and linker
+  - Some of the frequently used commands:
+    - build
+    - clean
+    - doc
+    - env
+    - fmt
+    - get
+    - install
+    - list
+    - run
+    - test
+    - version
+    - vet
