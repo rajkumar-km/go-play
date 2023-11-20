@@ -99,19 +99,36 @@ Speed up the compilation:
 
 ## The Go Tool
   - The "go" is a combined set of tools for downloading, querying, formatting, building, testing,
-    and installing go packages. So, go tool is a
-  - Package manager like apt, rpm
-  - Build system that compute dependencies, invoke compiler, assembler, and linker
+    and installing go packages. So, go tool is a package manager like apt, and rpm. Also, a build
+    system that compute dependencies, invoke compiler, assembler, and linker.
+  - This is similar to the design of Swiss army knife to perform multiple tasks.
   - Some of the frequently used commands:
-    - build
-    - clean
-    - doc
-    - env
-    - fmt
-    - get
-    - install
-    - list
-    - run
-    - test
-    - version
-    - vet
+    - build    - compile packages and dependencies
+    - clean    - remove object files
+    - doc      - show documentation for package or symbol
+    - env      - print Go environment variables
+    - fmt      - run gofmt and update source files
+    - get      - download and install packages and its dependencies
+    - install  - compile and install packages and its dependencies
+    - list     - list packages in local/remote, including custom lists such as dependencies with -f
+    - run      - compile and run Go program
+    - test     - test packages
+    - version  - print Go version
+    - vet      - run go vet on packages to identify potential issues in the program.
+  - To keep the configurations minimum, Go relies on convensions. For example, a package name can
+    be identified by its underlying directory. The import path also includes the repository of the
+    package.
+### Workspace Organization
+  - Run "go env" to get the complete list of go environment configurations.
+  - GOPATH environment variable is the one every developers need to know.
+  - This refers to root of our workspace which contains three subdirectories:
+    1. src/ 
+       - All our source code resides here with subdirectories for each repo
+       - Example: src/github.com/rajkumar-km/go-play/go-basics/01-hello/hello.go
+    2. pkg/
+       - Stores compiled packages here
+       - Example: $GOPATH/pkg/mod/github.com/rajkumar-km/go-play@v0.0.0-20230729032233-5ceac969bcd6
+    3. bin/
+       - Executable binary files are stored here
+  - GOROOT specifies the root directory of Go distribution which contains all Go standard packages.
+  - GOOS specify the target operating system and GOARCH is the target architecture to compile for.
