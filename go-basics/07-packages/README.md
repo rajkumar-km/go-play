@@ -132,3 +132,49 @@ Speed up the compilation:
        - Executable binary files are stored here
   - GOROOT specifies the root directory of Go distribution which contains all Go standard packages.
   - GOOS specify the target operating system and GOARCH is the target architecture to compile for.
+### Downloading Packages
+  - The import path not only refers the local path but it can also locate the remote repository.
+  - The "go get" command download the package and its dependencies, build, and install them.
+  - Examples:
+    go get golang.org/x/lint
+    go get -u golang.org/x/lint # -u flag to get latest version and update its dependencies as well
+    go get -v github.com/some-repo/sub/... # use ... to install all packages in a subtree
+  - This supports popular repositories like github.com, bitbucket, and lanuchpad. For other sites,
+    we need to specify the protocol use in import path (such as git or mecurial).
+  - The import path need not be a actual hosting repository. Instead the import path can contain a
+    metadata that can redirect to a actual repository. Go tool supports redirection with metadata.
+### Building Packages
+  - The go build command compiles the specified package
+  - If the package is a library, the result is ignored but prints compile errors if any. This is
+    just to ensure that library is free of compile errors.
+  - If the package is main, Go invokes the linker and generates the executable file. The executable
+    file is named by the last segment of path.
+  - One or more files can also be specified for go build in which case executable name is the
+    basename of first file.
+  - Examples:
+    go build github.com/rajkumar-km/go-play/go-basics/01-hello # produces exe "01-hello"
+    cd go-play/ && go build ./go-basics/01-hello               # produces exe "01-hello"
+    cd go-play/ && go build go-basics/01-hello                 # not supported without "./" prefix
+    cd go-play/ && go build ./go-basics/01-hello/hello.go      # produces exe "hello"
+  - The go run command is handy to quickly build and run the programs. 
+    go run ./echo/echo.go "hello"
+    go run ./echo/echo.go -- "sample.go" # use -- to pass any ".go" string as arguments
+  - go build compiles the requested packages and all its dependencies by default. It is faster for
+    smaller projects, but it can slow down when the number of packages and lines of code increases.
+  - The go install command comes to the rescue. It is similar to go build except it can save the
+    compiled code under GOPATH/pkg and GOPATH/bin for each packages instead of throwing away.
+    Thereafter go build or go install won't compile the package unless there are changes.
+  - "go build -i" is equal to "go install" command to build and save the compiled code.
+  - Cross platform compilation is easy in Go by setting the GOOS and GOARCH environment variables.
+  - Sometime, we may have files that should be built only on specific platform.
+  - Go tool also scans for OS and archiecture names in the filename and builds only on the
+    particular OS or architecture. For example, "net_linux.go" will be build only if the GOOS is
+    linux. or net_amd64.go is build only if GOARCH is amd64.
+  - We can also use the special package comments to control the build.
+  - To build only on linux and mac os
+    // +build linux darwin
+    package net
+  - To ignore during the build
+    // +build ignore
+    package dummy
+  - See go doc go/build for more details.
