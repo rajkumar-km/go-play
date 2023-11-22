@@ -18,16 +18,33 @@ Commands to run Test:
 Test Functions:
   - Each test file imports the "testing" package from standard library and have functions starting
     with keyword "Test" and accepts the testing.T argument. The arguments is useful to report the
-    errors.
+    errors and log debug messages.
   - Use t.Error or t.Errorf to display error and continue to run further tests
   - Use t.Fatal or t.Fatalf to break execution
   - It is usually a good practice to write the test first and validate the errors reported. Later,
     the functionality or fix can be implemented to ensure that we address the right problem.
+
+Table-driven tests:
+  - A comprehensive table-driven model to cover bunch of various inputs
+  - See TestLinearSearchTableDriven() for example
+
+Randomized tests:
+  - Inputs can be generated in random for testing instead of using a table.
+  - But, how do we know the expected output. There are two ways:
+    1. Write an alternative implementation which is straightforward and may be less efficient to
+    produce the expected output.
+    2. Generate the inputs in a such a way that we can guess the output
+  - It may be difficult to debug the failing cases when using random inputs. Instead of dumping the
+    whole lot of information, simply log the random seed or the input which is sufficient to
+    reproduce the failure again.
+  - See TestLinearSearchRandom() for example
 */
 package algorithms_test
 
 import (
+	"math/rand"
 	"testing"
+	"time"
 
 	"github.com/rajkumar-km/go-play/go-basics/17-testing/algorithms"
 )
@@ -48,7 +65,7 @@ func TestLinearSearchNotFound(t *testing.T) {
 	}
 }
 
-func TestLinearSearchComprehensive(t *testing.T) {
+func TestLinearSearchTableDriven(t *testing.T) {
 	v := []int{10, 40, 30, 20, 50}
 
 	// Use this comprehensive table-driven model to cover bunch of various inputs
@@ -71,6 +88,22 @@ func TestLinearSearchComprehensive(t *testing.T) {
 		if idx != c.want {
 			// Usual form of error message includes "want", but skip this if want is a boolean
 			t.Errorf("LinearSearch(v, %d) == %d, want %d", c.input, idx, c.want)
+		}
+	}
+}
+
+func TestLinearSearchRandom(t *testing.T) {
+	for i := 0; i < 100 ; i++ {
+		seed := time.Now().UTC().UnixNano()
+		t.Logf("Random seed: %d", seed)
+		rng := rand.New(rand.NewSource(seed))
+
+		v := make([]int, 100)
+		want := rng.Intn(100)
+		v[want] = 30
+		idx := algorithms.LinearSearch(v, 30)
+		if idx != want {
+			t.Errorf("LinearSearch(v, %d) == %d, want %d", 30, idx, want)
 		}
 	}
 }
