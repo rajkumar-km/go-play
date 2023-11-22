@@ -178,3 +178,43 @@ Speed up the compilation:
     // +build ignore
     package dummy
   - See go doc go/build for more details.
+### Documenting Packages
+  - Go style strongly encourages the documentation of Go packages through comments.
+  - Add a package comment before package declaration - typically a multiline comment containing
+    the one line summary starting with package/executable name followed by the explanation about
+    the package. Package comment is expected to be available in any one of the source files if
+    there are multiple files.
+  - Add one or more lines of comment before every package member containing the summary and
+    purpose. Summary typically starts with the member name. Go doc comments are always complete
+    sentences and involves function arguments without quotes.
+  - Example:
+    // Fprintf formats according to a format specifier and writes to w.
+    // It returns the number of bytes written and any write error encountered.
+    func Fprintf(w io.Writer, format string, a ...interface{}) (int, error)
+  - Good documentation need not be extensive. Go recommends brevity and simplicity in
+    documentations because it requires maintenance.
+  - Use "go doc" with standard libraries to see the sample comments.
+    go doc time
+    go doc time.since
+  - Another tool "godoc" provides more detailed documentation supplied by a HTML service running
+    on golang.org. We can also run a godoc service for our local packages.
+    godoc -http :8000
+### Internal Packages
+  - Any package member starting with capital letter is exposed to outside world and others are
+    accessible only within the package.
+  - But, we may need some middle ground access not to expose the APIs outside the world, but allow
+    within the project.
+  - Go does not allow to import a package if its path contains the "internal" directory somewhere.
+    So, any packages inside app/internal/ is accessible only to app/ and its sub folders say
+    app/business/, but not outside the app folder.
+### Querying Packages
+  - The go list command displays information about available packages
+    go list golang.org/x/lint
+    go list golang.org/x/lint/... # use ... to match all nested packages
+    go list ...
+    go list ...xml... # match any topic
+  - It return several information about the package apart from its import path using -json.
+    go list -json golang.org/x/lint # list all data in json format
+  - Output can be formatted using -f option
+    go list -f '{{join .Deps " "}}' strconv
+    go list -f '{{.ImportPath}} -> {{join .Imports " "}}' compress/...
