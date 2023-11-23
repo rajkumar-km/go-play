@@ -23,8 +23,12 @@ func TestMd5sum(t *testing.T) {
 		{"abcd", "e2fc714c4727ee9395f324cd2e7f331f"},
 	}
 
+	// override md5sum command to write output in our buffer
 	buf := new(bytes.Buffer)	
-	md5Out = buf // override md5sum command to write output in our buffer
+	m5dOutSaved := md5Out
+	md5Out = buf
+	// restore the original functionality so that its works properly after this test
+	defer func() { md5Out = m5dOutSaved }()
 
 	for _, c := range cases {
 		buf.Reset()
