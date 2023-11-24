@@ -38,6 +38,48 @@ Randomized tests:
     whole lot of information, simply log the random seed or the input which is sufficient to
     reproduce the failure again.
   - See TestLinearSearchRandom() for example
+
+Writing Effective Tests:
+  - Many newcomers go Go surprised by the minimalism of Go's testing framework. It does not have
+    the following features: Setup and Teardown hooks for performing certain operations before and
+    after the test runs. Utility libraries for assertions, formatting, aborting a failed test.
+  - Although these helpers make the tests very concise, the resulting code often seems like foreign
+    language and not like Go. Also, the error messages provided by the assert functions may not
+    have the sufficient context.
+  - Go expects test authors to do most of the works, defining functions to avoid repetition.
+  - A good test should not break and report the problem with context. Developers should not look
+    at the code to debug a test failure.
+  - Also, it should return immediately after the first failure and but provide list of failures.
+
+Avoiding Brittle Tests:
+  - An application that fails when entering valid new input is buggy.
+  - A test that fails when a sound change was made to the program is called brittle.
+  - To write easily maintainable tests:
+  - Check only the properties that you care about.
+  - Test stable API interfaces more often than the interface functions.
+  - Do not match the full error message, instead match only key sub string that won't change.
+  - If needed write functions to parse the complex output to its essence so that the assertions
+    will be reliable.
+
+Coverage:
+  - By its nature, testing is never complete.
+  - "Testing shows the presence of bugs and not the absense" - Edsger Dijkstra
+  - The degree in which test suite exercise the package is called the test coverage.
+  - Go test has the built-in options to measure the code coverage:
+  - go tool cover  # shows help
+  - go test --cover # returns the coverage summary in percent
+  - go test --coverprofile=c.out # generates the log file with coverage report
+    Go test modifies the copy of a source code for testing. It set a boolean variable for every
+    block to track the coverage. Finally writes the coverage flag in the log file c.out
+  - go test --coverprofile=c.out --covermode=count
+    Instead of having boolean variable for every block, a counter is used to track how many times
+    a block is covered in the test.
+  - go tool cover --html=c.out
+    Generates a html output from the cover profile generated earlier and open in it browser.
+  - Achieving 100% coverage may seems like a goal, but it is not the usual case:
+  - A line is bug free not just because a statement is executed. Some statements are never
+    reachable: Say a panic() writen in a unreable block.
+  - Instead we should focus on repeated test in a complex path with different inputs.
 */
 package algorithms_test
 
@@ -69,9 +111,9 @@ func TestLinearSearchTableDriven(t *testing.T) {
 	v := []int{10, 40, 30, 20, 50}
 
 	// Use this comprehensive table-driven model to cover bunch of various inputs
-	var cases = []struct{
+	var cases = []struct {
 		input int
-		want int
+		want  int
 	}{
 		{10, 0},
 		{40, 1},
@@ -83,7 +125,7 @@ func TestLinearSearchTableDriven(t *testing.T) {
 		{-1, -1},
 	}
 
-	for _,c := range cases {
+	for _, c := range cases {
 		idx := algorithms.LinearSearch(v, c.input)
 		if idx != c.want {
 			// Usual form of error message includes "want", but skip this if want is a boolean
@@ -93,7 +135,7 @@ func TestLinearSearchTableDriven(t *testing.T) {
 }
 
 func TestLinearSearchRandom(t *testing.T) {
-	for i := 0; i < 100 ; i++ {
+	for i := 0; i < 100; i++ {
 		seed := time.Now().UTC().UnixNano()
 		t.Logf("Random seed: %d", seed)
 		rng := rand.New(rand.NewSource(seed))
