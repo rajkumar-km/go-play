@@ -1,5 +1,5 @@
 /*
-Package algorithms_test demonstrates testing packages in Go
+Package functions_test demonstrates testing packages in Go
 
   - Go has the inbuilt support for testing the code. This is no different from writing the
     functional code.
@@ -8,7 +8,7 @@ Package algorithms_test demonstrates testing packages in Go
   - The "go test" command can be used to run the test code. This would build both the actual
     code and the test code. Create an test executable automaticaly to invoke test functions.
   - Go tool allows to have two packages in the same directory to accomodate test code. So, we have
-    "algorithm" and "algorithm_test" packages in the same path.
+    "functions" and "functions_test" packages in the same path.
 
 Commands to run Test:
   - go test
@@ -81,19 +81,19 @@ Coverage:
     reachable: Say a panic() writen in a unreable block.
   - Instead we should focus on repeated test in a complex path with different inputs.
 */
-package algorithms_test
+package functions_test
 
 import (
 	"math/rand"
 	"testing"
 	"time"
 
-	"github.com/rajkumar-km/go-play/go-basics/17-testing/algorithms"
+	"github.com/rajkumar-km/go-play/go-basics/17-testing/functions"
 )
 
 func TestLinearSearch(t *testing.T) {
 	v := []int{10, 40, 30, 20, 50}
-	idx := algorithms.LinearSearch(v, 20)
+	idx := functions.LinearSearch(v, 20)
 	if idx != 3 {
 		t.Error("LinearSearch(v, 20) != 3")
 	}
@@ -101,7 +101,7 @@ func TestLinearSearch(t *testing.T) {
 
 func TestLinearSearchNotFound(t *testing.T) {
 	v := []int{10, 40, 30, 20, 50}
-	idx := algorithms.LinearSearch(v, 100)
+	idx := functions.LinearSearch(v, 100)
 	if idx != -1 {
 		t.Error("LinearSearch(v, 100) != -1")
 	}
@@ -126,7 +126,7 @@ func TestLinearSearchTableDriven(t *testing.T) {
 	}
 
 	for _, c := range cases {
-		idx := algorithms.LinearSearch(v, c.input)
+		idx := functions.LinearSearch(v, c.input)
 		if idx != c.want {
 			// Usual form of error message includes "want", but skip this if want is a boolean
 			t.Errorf("LinearSearch(v, %d) == %d, want %d", c.input, idx, c.want)
@@ -143,7 +143,7 @@ func TestLinearSearchRandom(t *testing.T) {
 		v := make([]int, 100)
 		want := rng.Intn(100)
 		v[want] = 30
-		idx := algorithms.LinearSearch(v, 30)
+		idx := functions.LinearSearch(v, 30)
 		if idx != want {
 			t.Errorf("LinearSearch(v, %d) == %d, want %d", 30, idx, want)
 		}

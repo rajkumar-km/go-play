@@ -1,7 +1,7 @@
 /*
-Package algorithms provides the utility functions for key algorithms
+Package functions provides the utility functions for key algorithms
 */
-package algorithms
+package functions
 
 // LinearSearch searches for the element e in the slice v
 // Returns the matching index, -1 otherwise.
