@@ -28,21 +28,37 @@ import (
 
 func TestBinarySearch(t *testing.T) {
 	v := []int{20, 30, 40, 50, 70, 100}
-	if ! search.IsSorted(v) {
+	if !search.IsSorted(v) {
 		// Exit the test if when using invalid test data
 		t.Fatalf("Input array not sorted for binary search: %v", v)
 	}
 
-	idx := search.BinarySearch(v, 0, len(v)-1, 70)
-	want := 4
-	if idx != want {
-		t.Errorf("search.BinarySearch(v, %d) = %d, want %d", 70, idx, want)
+	// Use this comprehensive table-driven model to cover bunch of various inputs
+	var cases = []struct {
+		input int
+		want  int
+	}{
+		{20, 0},
+		{30, 1},
+		{40, 2},
+		{50, 3},
+		{70, 4},
+		{100, 5},
+		{200, -1},
+		{-1, -1},
+	}
+
+	for _, c := range cases {
+		idx := search.BinarySearch(v, 0, len(v)-1, c.input)
+		if idx != c.want {
+			t.Errorf("BinarySearch(v, %d) = %d, want %d", c.input, idx, c.want)
+		}
 	}
 }
 
 func TestIsSorted(t *testing.T) {
 	v := []int{20, 30, 40, 50, 70, 100}
-	if ! search.IsSorted(v) {
+	if !search.IsSorted(v) {
 		t.Errorf("search.IsSorted(v) = false")
 	}
 
