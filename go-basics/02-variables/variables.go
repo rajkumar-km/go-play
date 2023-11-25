@@ -32,6 +32,28 @@ Examples:
 Go initializes all the variables to its corresponding zero value by default:
   - Global variables are initialized before the main() starts
   - Function variables are initialized only when the function is invoked
+
+Naming in Go:
+The names of Go variables, constants, functions, types, statement labels, and packages:
+  - Must start with a letter or underscore
+  - Can be in any length with letters, digits, and underscores. But Go recommends shorter names.
+  - Case sensitive: getName() and GetName() are two different functions
+  - Go has 25 keywords that can not be used as names
+  - Go programmers use the "camel case" style for names.
+  - The acronyms are left as it is in the capital. For example, escapeHTML() is valid and not escapeHtml()
+
+Go keywords that can not be used as names:
+  - break, case, chan, const, continue, default, defer, else, fallthrough, for, func, go, goto
+  - if, import, interface, map, package, range, return, select, struct, switch, type, var
+
+Go predeclared names that can be reused:
+The following are the predeclared Go names that aren't reserved. This can be used in the program
+but wherever it really makes sense. Please be aware of the confusion caused by redeclaration.
+  - Constants - true, false, iota, nil
+  - Types - int, int8, int16, int32, int64, uint, uint16, uint32, uint64, float32, float64,
+    complex64, complex128, byte, rune, bool, string, error
+  - Functions - new, make, len, cap, copy, append
+    close, delete, complex, real, imag, panic, recover
 */
 package main
 

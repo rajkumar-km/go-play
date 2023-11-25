@@ -9,8 +9,9 @@ import "fmt"
 // Integer types:
 //   - int8, int16, int32, int64, int (size depends on compiler)
 //   - uint8, uint16, uint32, uint64, uint (size depends on compiler)
-//   - byte - alias of int8 and can be used interchangably
-//   - rune - alias of int32 and can be used interchangably
+//   - byte - represents a piece of raw data. alias of int8 and can be used interchangably
+//   - rune - represents unicode characters. alias of int32 and can be used interchangably
+//   - uintptr - hold the pointers for low level programming (size not specified)
 func DemoIntegers() {
 	// int literals can be decimal, octal, or hexadecimal
 	// i := 123 - decimal

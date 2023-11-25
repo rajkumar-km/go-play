@@ -1,5 +1,11 @@
 /*
 Package main demonstrates the various data types supported in Go
+
+Go types fall into four categories:
+ 1. Basic types - boolean, numeric (integers, float, and complex), and strings
+ 2. Aggregate types - array and struct
+ 3. Reference types - pointers, slices, map, chan, func
+ 4. Interface types - interface
 */
 package main
 
